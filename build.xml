@@ -12,6 +12,10 @@
         <pathelement location="${classes.dir}"/>
     </path>
 
+    <target name="hello">
+        <echo>Hello, World!</echo>
+    </target>
+
     <!-- Clean -->
     <target name="clean">
         <delete dir="${build.dir}"/>
@@ -20,7 +24,7 @@
     </target>
 
     <!-- Compile -->
-    <target name="compile" depends="clean">
+    <!--<target name="compile" depends="clean">
         <mkdir dir="${classes.dir}"/>
         <mkdir dir="${test.classes.dir}"/>
         <javac srcdir="${main.dir}" destdir="${classes.dir}" classpathref="classpath" source="1.8"
@@ -29,6 +33,13 @@
             <fileset dir="${resources.dir}"/>
         </copy>
         <echo message="––– COMPILE DONE –––"/>
+    </target> -->
+
+    <target name="compile">
+        <mkdir dir="build/classes"/>
+        <javac destdir="build/classes" includeantruntime="false">
+            <src path="src"/>
+        </javac>
     </target>
 
     <!-- Build -->
