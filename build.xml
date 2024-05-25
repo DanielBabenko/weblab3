@@ -6,14 +6,6 @@
         <fileset dir="${main.dir}" includes="*.java"/>
     </path>
 
-    <path id="classpath.source">
-        <fileset dir="src/main/lib" includes="**/*.jar"/>
-    </path>
-
-    <path id="classpath.testSource">
-        <fileset dir="src/test/lib" includes="**/*.jar"/>
-    </path>
-
     <path id="classpath.test">
         <pathelement location="${junit}"/>
         <pathelement location="${hamcrest}"/>
