@@ -2,6 +2,7 @@
     <property file="build.properties"/>
 
     <path id="classpath">
+        <fileset dir="${lib.dir}" includes="*.jar"/>
         <fileset dir="${main.dir}" includes="*.java"/>
     </path>
 
