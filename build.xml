@@ -1,0 +1,235 @@
+<project name="MiSPILab3" default="build">
+    <property file="build.properties"/>
+
+    <path id="classpath">
+        <fileset dir="${lib.dir}" includes="*.jar"/>
+        <fileset dir="${main.dir}" includes="*.java"/>
+    </path>
+
+    <path id="classpath.source">
+        <fileset dir="src/main/lib" includes="**/*.jar"/>
+    </path>
+
+    <path id="classpath.testSource">
+        <fileset dir="src/test/lib" includes="**/*.jar"/>
+    </path>
+
+    <path id="classpath.test">
+        <pathelement location="${junit}"/>
+        <pathelement location="${hamcrest}"/>
+        <pathelement location="${classes.dir}"/>
+    </path>
+
+    <!-- Clean -->
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+        <delete dir="${junit.report.dir}"/>
+        <echo message="––– CLEAN DONE –––"/>
+    </target>
+
+    <!-- Compile -->
+    <target name="compile" depends="clean">
+        <mkdir dir="${classes.dir}"/>
+        <mkdir dir="${test.classes.dir}"/>
+        <javac srcdir="${main.dir}" destdir="${classes.dir}" classpathref="classpath" source="1.8"
+               includeantruntime="false"/>
+        <copy todir="${classes.dir}">
+            <fileset dir="${resources.dir}"/>
+        </copy>
+        <echo message="––– COMPILE DONE –––"/>
+    </target>
+
+    <!-- Build -->
+    <target name="build" depends="compile">
+        <copy todir="${artifact.dir}" >
+            <fileset dir="${web.dir}"/>
+        </copy>
+        <copy todir="${artifact-lib.dir}">
+            <fileset dir="${lib.dir}"/>
+        </copy>
+        <war destfile="${build.dir}/${ant.project.name}.war">
+            <fileset dir="${artifact.dir}"/>
+            <manifest>
+                <attribute name="Manifest-Version" value="1.0" />
+                <attribute name="Main-Class" value="NoClass" />
+            </manifest>
+        </war>
+        <echo message="––– BUILD DONE –––"/>
+    </target>
+
+    <!-- Test -->
+    <target name="test" depends="compile">
+        <mkdir dir="${junit.report.dir}"/>
+        <javac destdir="${test.classes.dir}" srcdir="${test.dir}" includeantruntime="false"
+               classpathref="classpath.test"/>
+        <junit printsummary="on" haltonfailure="yes">
+            <classpath>
+                <path refid="classpath.test"/>
+                <pathelement location="${test.classes.dir}"/>
+            </classpath>
+            <batchtest fork="yes" todir="${junit.report.dir}">
+                <formatter type="xml"/>
+                <fileset dir="${test.dir}" includes="*Test*.java"/>
+            </batchtest>
+        </junit>
+        <echo message="––– TESTS COMPLETED –––"/>
+    </target>
+
+    <!-- XML -->
+    <target name="xml">
+        <xmlvalidate warn="yes" failonerror="no" >
+            <fileset dir="${project.dir}" includes="**/*.xml">
+                <exclude>name=".idea/**"</exclude>
+            </fileset>
+            <attribute name="http://xml.org/sax/features/validation" value="true"/>
+            <attribute name="http://apache.org/xml/features/validation/schema" value="true"/>
+            <attribute name="http://xml.org/sax/features/namespaces" value="true"/>
+        </xmlvalidate>
+        <echo message="––– XML VALIDATION DONE –––"/>
+    </target>
+
+    <!-- Env -->
+    <target name="env" depends="clean">
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="${main.dir}" destdir="${classes.dir}" classpathref="classpath" source="${compile.version}"
+               includeantruntime="false">
+        </javac>
+        <copy todir="${classes.dir}">
+            <fileset dir="${resources.dir}"/>
+        </copy>
+        <antcall target="build"/>
+        <exec executable="bash">
+            <arg value="env.sh"/>
+        </exec>
+        <echo message="––– ENV DONE –––"/>
+    </target>
+
+    <!-- Native2ascii -->
+    <target name="native2ascii">
+        <native2ascii encoding="UTF-8" dest="${build.dir}/webapp/WEB-INF/classes" src="${resources.dir}">
+            <include name="**/*.properties" />
+        </native2ascii>
+        <echo message="––– NATIVE2ASCII DONE –––"/>
+    </target>
+
+    <!--DOC -->
+    <target name="doc" depends="build">
+        <delete dir="${doc.dir}"/>
+        <mkdir dir="${doc.dir}"/>
+        <javadoc destdir="${doc.dir}">
+            <classpath refid="classpath.source"/>
+            <classpath refid="classpath.testSource"/>
+            <fileset dir="${src.dir}" includes="**/*.java"/>
+        </javadoc>
+        <jar destfile="${dist.jar}" update="true">
+            <fileset dir="." includes="${doc.dir}/**"/>
+        </jar>
+        <signjar alias="web3"
+                 storepass="webWeb"
+                 keystore="${keystore}"
+                 sigalg="MD5withRSA"
+                 digestalg="SHA1">
+            <path>
+                <file file="${dist.jar}"/>
+            </path>
+        </signjar>
+
+        <echo message="––– DOC GENERATION DONE –––"/>
+    </target>
+
+    <!-- SCP -->
+    <target name="scp" depends="build">
+        <scp todir="${scp.host}" port="${scp.port}" password="${scp.password}" trust="true" >
+            <fileset dir="${build.dir}">
+                <include name="**/*.war" />
+            </fileset>
+        </scp>
+        <echo message="––– SCP MOVING DONE –––"/>
+    </target>
+
+    <!-- Report -->
+    <target name="report" depends="test">
+        <mkdir dir="${build.dir}/test-reports"/>
+
+        <junitreport todir="${build.dir}/test-reports">
+            <fileset dir="${build.dir}/test-results">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${build.dir}/test-reports/html"/>
+        </junitreport>
+
+        <exec executable="git" failonerror="false">
+            <arg value="add"/>
+            <arg value="${build.dir}/test-reports"/>
+        </exec>
+
+        <exec executable="git" failonerror="false">
+            <arg value="commit"/>
+            <arg value="-m"/>
+            <arg value="Automated commit of JUnit test report"/>
+        </exec>
+        <echo message="––– REPORT DONE –––"/>
+    </target>
+
+    <!-- History -->
+    <target name="history">
+        <exec executable="git" outputproperty="current.revision" failonerror="false">
+            <arg value="rev-parse"/>
+            <arg value="HEAD"/>
+        </exec>
+
+        <property name="previous.revision" value="HEAD"/>
+        <property name="found.working.revision" value="false"/>
+
+        <taskdef resource="net/sf/antcontrib/antcontrib.properties">
+            <classpath>
+                <pathelement location="${lib.dir}/ant-contrib.jar"/>
+            </classpath>
+        </taskdef>
+
+        <foreach list="${previous.revision}" param="revision" target="find-working-revision">
+            <param name="revision" value="${previous.revision}"/>
+        </foreach>
+
+        <echo message="––– HISTORY DONE –––"/>
+    </target>
+
+
+    <!-- Team -->
+    <target name="team">
+        <exec executable="git" outputproperty="current.revision" failonerror="false">
+            <arg value="rev-parse"/>
+            <arg value="HEAD"/>
+        </exec>
+
+        <property name="revision1" value="${current.revision}~1"/>
+        <property name="revision2" value="${current.revision}~2"/>
+
+        <echo>Building revision: ${revision1}</echo>
+        <exec executable="git" failonerror="false">
+            <arg value="checkout"/>
+            <arg value="${revision1}"/>
+        </exec>
+        <antcall target="build">
+            <param name="jar.name" value="${jar.name}-${revision1}.jar"/>
+        </antcall>
+
+        <echo>Building revision: ${revision2}</echo>
+        <exec executable="git" failonerror="false">
+            <arg value="checkout"/>
+            <arg value="${revision2}"/>
+        </exec>
+        <antcall target="build">
+            <param name="jar.name" value="${jar.name}-${revision2}.jar"/>
+        </antcall>
+
+        <zip destfile="${build.dir}/team-revisions.zip">
+            <fileset dir="${build.dir}">
+                <include name="${jar.name}-${revision1}.jar"/>
+                <include name="${jar.name}-${revision2}.jar"/>
+            </fileset>
+        </zip>
+
+        <echo message="––– TEAM-BUILDING DONE –––"/>
+    </target>
+</project>
