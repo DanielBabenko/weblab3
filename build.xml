@@ -1,4 +1,4 @@
-<project name="MiSPILab3" default="build">
+<project name="weblab3" default="build">
     <property file="build.properties"/>
 
     <path id="classpath">
@@ -23,8 +23,7 @@
     <target name="compile" depends="clean">
         <mkdir dir="${classes.dir}"/>
         <mkdir dir="${test.classes.dir}"/>
-        <javac srcdir="${main.dir}" destdir="${classes.dir}" classpathref="classpath" source="1.8"
-               includeantruntime="false"/>
+        <javac srcdir="${main.dir}" destdir="${classes.dir}" source="1.8" includeantruntime="false"/>
         <copy todir="${classes.dir}">
             <fileset dir="${resources.dir}"/>
         </copy>
