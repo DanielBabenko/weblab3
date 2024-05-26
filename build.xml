@@ -235,7 +235,6 @@
 <!--    </target>-->
 <!--</project>-->
 
-<?xml version="1.0"?>
 <project name="web3-290923-1800"
          xmlns:if="ant:if"
          xmlns:unless="ant:unless"
