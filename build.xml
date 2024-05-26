@@ -269,7 +269,7 @@
             <classpath refid="classpath.testSource"/>
         </javac>
     </target>
-    4
+
     <target name="build" depends="compile">
         <jar destfile="${dist.jar}" basedir="${target.classes}"
              compress="false" index="true">
@@ -315,7 +315,6 @@
             <arg value="0"/>
             <arg value="-nodisp"/>
             <arg value="-autoexit"/>
-            5
             <arg
                     value="/Users/zerumi/IdeaProjects/web3-290923-1800/src/main/resources/a
 udio.m4a"/>
@@ -362,7 +361,6 @@ C=US"/>
                 trust="true" />
         <scp
                 file="${dist.jar}"
-        6
         todir="${remote_user}@${host}:${remote_dir_path}"
         password="${remote_password}"
         port="${port}"/>
@@ -407,7 +405,6 @@ C=US"/>
         </exec>
         <condition property="vcs.git.should_commit" value="true">
             <resourcecount count="0">
-                7
                 <intersect>
                     <filelist id="vcs.git.files_to_commit"
                               files="${vcs.git.diff_output}"/>
@@ -453,7 +450,6 @@ C=US"/>
                 <num value="1"/>
             </op>
         </math>
-        8
         <echo message="going down to the history... ${svn_revision}"/>
         <exec executable="svn">
             <arg line="up -r ${svn_revision}"/>
@@ -501,7 +497,6 @@ ${svn_current_revision}:${svn_base_revision}"/>
             </try>
             <catch>
                 <exec executable="svn" outputproperty="svn_revision">
-                    9
                     <arg line="info --show-item revision"/>
                 </exec>
                 <if>
@@ -552,7 +547,6 @@ aa"/>
             </fileset>
         </move>
         <exec executable="svn">
-            10
             <arg line="add
 &quot;${test.result.dir}/${timestamp}&quot;"/>
         </exec>
