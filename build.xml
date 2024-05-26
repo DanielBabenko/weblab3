@@ -12,6 +12,15 @@
         <pathelement location="${classes.dir}"/>
     </path>
 
+    <path id="classpath.source">
+        <fileset dir="src/main/lib" includes="**/*.jar"/>
+    </path>
+
+    <path id="classpath.testSource">
+        <fileset dir="src/test/lib" includes="**/*.jar"/>
+    </path>
+
+
     <!-- Clean -->
     <target name="clean">
         <delete dir="${build.dir}"/>
@@ -104,27 +113,25 @@
 
     <!-- Doc -->
     <target name="doc" depends="build">
-        <mkdir dir="docs"/>
-        <signjar jar="${build.dir}/${ant.project.name}.jar"
-                 alias="ant_keystore"
-                 storepass="msc114"
-                 keystore="my-release-key.keystore"
-                 sigalg="MD5withRSA"
-                 digestalg="SHA1"/>
-        <javadoc
-                destdir="docs"
-                author="true"
-                version="true"
-                use="true">
-            <classpath>
-                <path refid="classpath"/>
-            </classpath>
-            <fileset dir="${src.dir}/main"/>
+        <delete dir="${doc.dir}"/>
+        <mkdir dir="${doc.dir}"/>
+        <javadoc destdir="${doc.dir}">
+            <classpath refid="classpath.source"/>
+            <classpath refid="classpath.testSource"/>
+            <fileset dir="${source.dir}" includes="**/*.java"/>
         </javadoc>
-        <jar destfile="${build.dir}/${ant.project.name}.jar"
-             basedir="docs"
-             update="true">
+        <jar destfile="${dist.jar}" update="true">
+            <fileset dir="." includes="${doc.dir}/**"/>
         </jar>
+        <signjar alias="web3"
+                 storepass="webWeb"
+                 keystore="${keystore}"
+                 sigalg="MD5withRSA"
+                 digestalg="SHA1">
+            <path>
+                <file file="${dist.jar}"/>
+            </path>
+        </signjar>
     </target>
 
     <!-- History -->
