@@ -24,14 +24,14 @@
     </target>
 
     <!-- Compile -->
-     <target name="build" depends="compile">
-         <jar destfile="${dist.jar}" basedir="${target.classes}"
-              compress="false" index="true">
-             <manifest>
-                 <attribute name="Main-Class"
-                            value="io.github.web32909231800.Main"/>
-             </manifest>
-         </jar>
+     <target name="compile">
+         <mkdir dir="${target.classes}"/>
+         <javac destdir="${target.classes}"
+                includeantruntime="false"
+                srcdir="${main.source}"
+                debug="on">
+             <classpath refid="classpath.source"/>
+         </javac>
      </target>
 
      <!-- Build -->
