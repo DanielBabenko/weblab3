@@ -12,12 +12,14 @@
         <pathelement location="${classes.dir}"/>
     </path>
 
+    <!-- Clean -->
     <target name="clean">
         <delete dir="${build.dir}"/>
         <delete dir="${junit.report.dir}"/>
         <echo message="––– CLEAN DONE –––"/>
     </target>
 
+    <!-- Compile -->
     <target name="compile" depends="clean">
         <mkdir dir="${classes.dir}"/>
         <mkdir dir="${test.classes.dir}"/>
@@ -29,6 +31,7 @@
         <echo message="––– COMPILE DONE –––"/>
     </target>
 
+    <!-- Build -->
     <target name="build" depends="compile">
         <copy todir="${artifact.dir}" >
             <fileset dir="${web.dir}"/>
@@ -47,6 +50,7 @@
         <echo message="––– BUILD DONE –––"/>
     </target>
 
+    <!-- Test -->
     <target name="test" depends="compile">
         <mkdir dir="${junit.report.dir}"/>
         <javac destdir="${test.classes.dir}" srcdir="${test.dir}" includeantruntime="false"
@@ -64,25 +68,16 @@
         <echo message="––– TESTS COMPLETED –––"/>
     </target>
 
+    <!-- XML -->
     <target name="xml">
-        <xmlvalidate failonerror="no" lenient="yes">
-            <fileset dir="${project.dir}" includes="**/*.xml"/>
+        <xmlvalidate lenient="true">
+            <fileset dir="${basedir}">
+                <include name="**/*.xml" />
+            </fileset>
         </xmlvalidate>
     </target>
-    <target name="music" depends="build">
-        <exec executable="ffplay">
-            <arg value="-v"/>
-            <arg value="0"/>
-            <arg value="-nodisp"/>
-            <arg value="-autoexit"/>
-            5
-            <arg
-                    value="/Users/zerumi/IdeaProjects/web3-290923-1800/src/main/resources/a
-udio.m4a"/>
-        </exec>
-    </target>
 
-
+    <!-- ENV -->
     <target name="env" depends="clean">
         <mkdir dir="${classes.dir}"/>
         <javac srcdir="${main.dir}" destdir="${classes.dir}" classpathref="classpath" source="${compile.version}"
@@ -96,4 +91,12 @@ udio.m4a"/>
             <arg value="env.sh"/>
         </exec>
     </target>
+
+    <!-- Native2ASCII -->
+    <target name="native2ascii">
+        <native2ascii encoding="UTF-8" dest="${build.dir}/webapp/WEB-INF/classes" src="${resources.dir}">
+            <include name="**/*.properties" />
+        </native2ascii>
+    </target>
+
 </project>
