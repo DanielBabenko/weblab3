@@ -36,10 +36,8 @@
     </target> -->
 
     <target name="compile">
-        <mkdir dir="build/classes"/>
-        <javac destdir="build/classes" includeantruntime="false">
-            <src path="src"/>
-        </javac>
+        <mkdir dir="${classes}"/>
+        <javac srcdir="${src}" destdir="${classes}" includeAntRuntime="false"/>
     </target>
 
     <!-- Build -->
