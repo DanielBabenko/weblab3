@@ -175,6 +175,29 @@
         </trycatch>
     </target>
 
+    <!-- Report -->
+    <target name="report" depends="test">
+        <mkdir dir="${build.dir}/test-reports"/>
+
+        <junitreport todir="${build.dir}/test-reports">
+            <fileset dir="${build.dir}/test-results">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${build.dir}/test-reports/html"/>
+        </junitreport>
+
+        <exec executable="git" failonerror="false">
+            <arg value="add"/>
+            <arg value="${build.dir}/test-reports"/>
+        </exec>
+
+        <exec executable="git" failonerror="false">
+            <arg value="commit"/>
+            <arg value="-m"/>
+            <arg value="Automated commit of JUnit test report"/>
+        </exec>
+    </target>
+
     <!-- Team -->
     <target name="team">
         <exec executable="git" outputproperty="current.revision" failonerror="false">
