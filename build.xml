@@ -124,8 +124,7 @@
         </signjar>
     </target>
 
-
-    <!-- Report -->
+    <!-- Team -->
     <target name="team">
         <exec executable="git" outputproperty="current.revision" failonerror="false">
             <arg value="rev-parse"/>
