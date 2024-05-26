@@ -75,6 +75,7 @@
                 <include name="**/*.xml" />
             </fileset>
         </xmlvalidate>
+        <echo message="––– XML VALIDATION COMPLETED –––"/>
     </target>
 
     <!-- ENV -->
@@ -90,6 +91,7 @@
         <exec executable="bash">
             <arg value="env.sh"/>
         </exec>
+        <echo message="––– ENV COMPLETED –––"/>
     </target>
 
     <!-- Native2ASCII -->
@@ -97,6 +99,54 @@
         <native2ascii encoding="UTF-8" dest="${build.dir}/webapp/WEB-INF/classes" src="${resources.dir}">
             <include name="**/*.properties" />
         </native2ascii>
+        <echo message="––– NATIVE2ASCII COMPLETED –––"/>
+    </target>
+
+    <!-- Report -->
+    <target name="team">
+        <exec executable="git" outputproperty="current.revision" failonerror="false">
+            <arg value="rev-parse"/>
+            <arg value="HEAD"/>
+        </exec>
+
+        <property name="revision1" value="${current.revision}~1"/>
+        <property name="revision2" value="${current.revision}~2"/>
+        <property name="revision3" value="${current.revision}~3"/>
+
+        <echo>Building revision: ${revision1}</echo>
+        <exec executable="git" failonerror="false">
+            <arg value="checkout"/>
+            <arg value="${revision1}"/>
+        </exec>
+        <antcall target="build">
+            <param name="war.name" value="${war.name}-${revision1}.war"/>
+        </antcall>
+
+        <echo>Building revision: ${revision2}</echo>
+        <exec executable="git" failonerror="false">
+            <arg value="checkout"/>
+            <arg value="${revision2}"/>
+        </exec>
+        <antcall target="build">
+            <param name="war.name" value="${war.name}-${revision2}.war"/>
+        </antcall>
+
+        <echo>Building revision: ${revision3}</echo>
+        <exec executable="git" failonerror="false">
+            <arg value="checkout"/>
+            <arg value="${revision3}"/>
+        </exec>
+        <antcall target="build">
+            <param name="war.name" value="${war.name}-${revision3}.war"/>
+        </antcall>
+
+        <zip destfile="${build.dir}/team-revisions.zip">
+            <fileset dir="${build.dir}">
+                <include name="${war.name}-${revision1}.war"/>
+                <include name="${war.name}-${revision2}.war"/>
+                <include name="${war.name}-${revision3}.war"/>
+            </fileset>
+        </zip>
     </target>
 
 </project>
