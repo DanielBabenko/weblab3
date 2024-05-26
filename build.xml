@@ -12,10 +12,6 @@
         <pathelement location="${classes.dir}"/>
     </path>
 
-    <path id="compile.path">
-        <fileset dir="lib/compile" includes="**/*.jar"/>
-    </path>
-
     <!-- Clean -->
     <target name="clean">
         <delete dir="${build.dir}"/>
@@ -121,7 +117,7 @@
                 version="true"
                 use="true">
             <classpath>
-                <path refid="compile.path"/>
+                <path refid="classpath"/>
             </classpath>
             <fileset dir="${src.dir}/main"/>
         </javadoc>
