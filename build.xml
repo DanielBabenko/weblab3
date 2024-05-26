@@ -24,7 +24,7 @@
     </target>
 
     <!-- Compile -->
-    <!--<target name="compile" depends="clean">
+    <target name="compile" depends="clean">
         <mkdir dir="${classes.dir}"/>
         <mkdir dir="${test.classes.dir}"/>
         <javac srcdir="${main.dir}" destdir="${classes.dir}" classpathref="classpath" source="1.8"
@@ -33,11 +33,6 @@
             <fileset dir="${resources.dir}"/>
         </copy>
         <echo message="––– COMPILE DONE –––"/>
-    </target> -->
-
-    <target name="compile">
-        <mkdir dir="${classes}"/>
-        <javac srcdir="${src}" destdir="${classes}" includeAntRuntime="false"/>
     </target>
 
     <!-- Build -->
