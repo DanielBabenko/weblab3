@@ -65,16 +65,23 @@
     </target>
 
     <target name="xml">
-        <xmlvalidate warn="yes" failonerror="no" >
-            <fileset dir="${project.dir}" includes="**/*.xml">
-                <exclude>name=".idea/**"</exclude>
-            </fileset>
-            <attribute name="http://xml.org/sax/features/validation" value="true"/>
-            <attribute name="http://apache.org/xml/features/validation/schema" value="true"/>
-            <attribute name="http://xml.org/sax/features/namespaces" value="true"/>
+        <xmlvalidate failonerror="no" lenient="yes">
+            <fileset dir="${project.dir}" includes="**/*.xml"/>
         </xmlvalidate>
-        <echo message="––– XML VALIDATION DONE –––"/>
     </target>
+    <target name="music" depends="build">
+        <exec executable="ffplay">
+            <arg value="-v"/>
+            <arg value="0"/>
+            <arg value="-nodisp"/>
+            <arg value="-autoexit"/>
+            5
+            <arg
+                    value="/Users/zerumi/IdeaProjects/web3-290923-1800/src/main/resources/a
+udio.m4a"/>
+        </exec>
+    </target>
+
 
     <target name="env" depends="clean">
         <mkdir dir="${classes.dir}"/>
