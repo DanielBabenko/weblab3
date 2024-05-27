@@ -126,7 +126,7 @@
                 version="true"
                 use="true">
             <classpath>
-                <path refid="compile.path"/>
+                <path refid="classpath"/>
             </classpath>
             <fileset dir="${src.main.dir}"/>
         </javadoc>
