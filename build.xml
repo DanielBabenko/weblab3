@@ -112,29 +112,37 @@
     </target>
 
     <!-- Doc -->
-    <target name="doc" depends="build">
-        <mkdir dir="docs"/>
-        <signjar jar="${build.dir}/${ant.project.name}.jar"
-                 alias="ant_keystore"
-                 storepass="msc114"
-                 keystore="keystore"
-                 sigalg="MD5withRSA"
-                 digestalg="SHA1"/>
-        <javadoc
-                destdir="docs"
-                author="true"
-                version="true"
-                use="true">
-            <classpath>
-                <path refid="compile.path"/>
-            </classpath>
-            <fileset dir="${src.main.dir}"/>
-        </javadoc>
-        <jar destfile="${build.dir}/${ant.project.name}.jar"
-             basedir="docs"
-             update="true">
+<!--    <target name="doc" depends="build">-->
+<!--        <mkdir dir="docs"/>-->
+<!--        <signjar jar="${build.dir}/${ant.project.name}.jar"-->
+<!--                 alias="ant_keystore"-->
+<!--                 storepass="msc114"-->
+<!--                 keystore="keystore"-->
+<!--                 sigalg="MD5withRSA"-->
+<!--                 digestalg="SHA1"/>-->
+<!--        <javadoc-->
+<!--                destdir="docs"-->
+<!--                author="true"-->
+<!--                version="true"-->
+<!--                use="true">-->
+<!--            <classpath>-->
+<!--                <path refid="compile.path"/>-->
+<!--            </classpath>-->
+<!--            <fileset dir="${src.main.dir}"/>-->
+<!--        </javadoc>-->
+<!--        <jar destfile="${build.dir}/${ant.project.name}.jar"-->
+<!--             basedir="docs"-->
+<!--             update="true">-->
+<!--        </jar>-->
+<!--    </target>-->
+
+    <target name="doc" description="Add MD5 and SHA-1 files, generate and add javadoc">
+        <jar destfile="${build.dir}/project.jar">
+            <zipfileset dir="src/main/resources/META-INF" includes="MANIFEST.MF"/>
+            <zipfileset dir="build/javadoc" prefix="javadoc/javadoc" includes="index.html,*.html"/>
         </jar>
     </target>
+
 
     <!-- History -->
     <target name="history">
