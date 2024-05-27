@@ -169,7 +169,7 @@
     <!-- SCP -->
     <target name="scp" depends="build" description="build and move war to server via scp">
         <echo>Connecting...</echo>
-        <scp file="${build.dir}/${ant.project.name}.war"
+        <scp file="${build.dir}/${ant.project.name}.jar"
              todir="${scp.user}@${scp.host}:${scp.dir}"
              password="${scp.password}"
              port="${scp.port}"
