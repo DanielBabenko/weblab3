@@ -48,14 +48,14 @@
         <copy todir="${artifact-lib.dir}">
             <fileset dir="${lib.dir}"/>
         </copy>
-        <jar destfile="${build.dir}/${ant.project.name}.jar">
+        <javac destfile="${build.dir}/${ant.project.name}.jar">
             <fileset dir="${artifact.dir}"/>
             <manifest>
                 <attribute name="Created-By" value="Artyom + Anvar" />
                 <attribute name="Manifest-Version" value="1.0" />
                 <attribute name="Main-Class" value="NoClass" />
             </manifest>
-        </jar>
+        </javac>
         <echo message="––– BUILD DONE –––"/>
     </target>
 
@@ -230,13 +230,13 @@
             <arg value="${revision2}"/>
         </exec>
         <antcall target="build">
-            <param name="dist.jar.name" value="${dist.jar.name}-${revision2}.war"/>
+            <param name="dist.jar.name" value="${dist.jar.name}-${revision2}.jar"/>
         </antcall>
 
         <zip destfile="${build.dir}/team-revisions.zip">
             <fileset dir="${build.dir}">
-                <include name="${dist.jar.name}-${revision1}.war"/>
-                <include name="${dist.jar.name}-${revision2}.war"/>
+                <include name="${dist.jar.name}-${revision1}.jar"/>
+                <include name="${dist.jar.name}-${revision2}.jar"/>
             </fileset>
         </zip>
 
