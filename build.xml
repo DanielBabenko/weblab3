@@ -137,6 +137,7 @@
     </target>
 
     <!-- SCP -->
+
     <target name="scp" depends="build" description="build and move war to server via scp">
         <echo>Connecting...</echo>
         <scp file="${build.dir}/${ant.project.name}.war"
