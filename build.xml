@@ -147,47 +147,24 @@
     </target>
 
     <!-- History -->
-    <target name="history" description="Building the newest buildable revision, then show difference with next revision">
-        <antcall target="compile-with-history"/>
-    </target>
-
-    <property name="revision.file" value="last_successful_revision.txt"/>
-    <property name="diff.file" value="diff_result.txt"/>
-
-    <target name="compile-with-history">
-        <trycatch>
-            <try>
-                <antcall target="compile"/>
-            </try>
-            <catch>
-                <echo message="Compilation failed, trying to revert to previous version from SVN..."/>
-                <antcall target="revert-to-previous-revision"/>
-                <antcall target="compile"/>
-            </catch>
-        </trycatch>
-    </target>
 
     <!-- Report -->
-    <target name="report" depends="test">
-        <mkdir dir="${build.dir}/test-reports"/>
-
-        <junitreport todir="${build.dir}/test-reports">
-            <fileset dir="${build.dir}/test-results">
-                <include name="TEST-*.xml"/>
-            </fileset>
-            <report format="frames" todir="${build.dir}/test-reports/html"/>
-        </junitreport>
-
-        <exec executable="git" failonerror="false">
-            <arg value="add"/>
-            <arg value="${build.dir}/test-reports"/>
-        </exec>
-
-        <exec executable="git" failonerror="false">
-            <arg value="commit"/>
-            <arg value="-m"/>
-            <arg value="Automated commit of JUnit test report"/>
-        </exec>
+    <target name="report" depends="test" description="If all test pass then create junit, git add and commit">
+        <mkdir dir="${doc.report.dir}"/>
+        <copy todir="${doc.report.dir}">
+            <fileset dir="${test.dir}" includes="*.xml"/>
+        </copy>
+        <sequential>
+            <exec executable="git">
+                <arg value="add"/>
+                <arg value="${doc.report.dir}/*"/>
+            </exec>
+            <exec executable="git">
+                <arg value="commit"/>
+                <arg value="-m"/>
+                <arg value="passed tests"/>
+            </exec>
+        </sequential>
     </target>
 
     <!-- Team -->
