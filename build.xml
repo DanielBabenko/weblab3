@@ -147,49 +147,22 @@
     </target>
 
     <!-- History -->
-    <target name="history">
-        <exec executable="git" outputproperty="current.revision" failonerror="false">
-            <arg value="rev-parse"/>
-            <arg value="HEAD"/>
-        </exec>
-
-        <property name="previous.revision" value="HEAD"/>
-        <property name="found.working.revision" value="false"/>
-
-        <taskdef resource="net/sf/antcontrib/antcontrib.properties">
-            <classpath>
-                <pathelement location="${lib.dir}/ant-contrib.jar"/>
-            </classpath>
-        </taskdef>
-
-        <foreach list="${previous.revision}" param="revision" target="find-working-revision">
-            <param name="revision" value="${previous.revision}"/>
-        </foreach>
+    <target name="history" description="Building the newest buildable revision, then show difference with next revision">
+        <antcall target="compile-with-history"/>
     </target>
 
-    <target name="find-working-revision">
-        <exec executable="git" failonerror="false">
-            <arg value="checkout"/>
-            <arg value="${revision}"/>
-        </exec>
+    <property name="revision.file" value="last_successful_revision.txt"/>
+    <property name="diff.file" value="diff_result.txt"/>
 
+    <target name="compile-with-history">
         <trycatch>
             <try>
                 <antcall target="compile"/>
-                <echo>Found working revision: ${revision}</echo>
-                <exec executable="git" output="${build.dir}/diff.txt" failonerror="false">
-                    <arg value="diff"/>
-                    <arg value="${revision}~1"/>
-                    <arg value="${current.revision}"/>
-                </exec>
-                <exec executable="git" failonerror="false">
-                    <arg value="checkout"/>
-                    <arg value="${current.revision}"/>
-                </exec>
-                <fail message="Compilation fixed. Please check diff.txt for changes."/>
             </try>
             <catch>
-                <echo>Compilation failed on revision: ${revision}. Checking previous revision...</echo>
+                <echo message="Compilation failed, trying to revert to previous version from SVN..."/>
+                <antcall target="revert-to-previous-revision"/>
+                <antcall target="compile"/>
             </catch>
         </trycatch>
     </target>
