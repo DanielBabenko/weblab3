@@ -176,7 +176,7 @@
     <target name="scp" depends="build">
         <scp todir="${scp.host}" port="${scp.port}" password="${scp.password}" trust="true" >
             <fileset dir="${build.dir}">
-                <include name="**/*.war" />
+                <include name="**/*.jar" />
             </fileset>
         </scp>
     </target>
