@@ -136,27 +136,6 @@
         </jar>
     </target>
 
-    <target name="coc" depends="build">
-        <mkdir dir="${doc.dir}"/>
-        <javadoc destdir="${doc.dir}">
-            <classpath refid="classpath.source"/>
-            <classpath refid="classpath.testSource"/>
-            <fileset dir="${source.dir}" includes="**/*.java"/>
-        </javadoc>
-        <jar destfile="${dist.jar}" update="true">
-            <fileset dir="." includes="${doc.dir}/**"/>
-        </jar>
-<!--        <signjar alias="web3"-->
-<!--                 storepass="webWeb"-->
-<!--                 keystore="${keystore}"-->
-<!--                 sigalg="MD5withRSA"-->
-<!--                 digestalg="SHA1">-->
-<!--            <path>-->
-<!--                <file file="${dist.jar}"/>-->
-<!--            </path>-->
-<!--        </signjar>-->
-    </target>
-
     <!-- SCP -->
     <target name="scp" depends="build" description="build and move war to server via scp">
         <echo>Connecting...</echo>
