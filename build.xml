@@ -158,37 +158,14 @@
     </target>
 
     <!-- SCP -->
-<!--    <target name="scp" depends="build">-->
-<!--        <sshexec-->
-<!--                host="${host}"-->
-<!--                port="${port}"-->
-<!--                username="${remote_user}"-->
-<!--                password="${remote_password}"-->
-<!--                command="mkdir -p ${remote_dir_path}"-->
-<!--                trust="true" />-->
-<!--        <scp-->
-<!--                file="${dist.jar}"-->
-<!--        todir="${remote_user}@${host}:${remote_dir_path}"-->
-<!--        password="${remote_password}"-->
-<!--        port="${port}"/>-->
-<!--    </target>-->
+>
     <target name="scp" depends="build" description="build and move war to server via scp">
-        <!--        <input message="Password: " addproperty="scp.password">-->
-        <!--            <handler type="secure"/>-->
-        <!--        </input>-->
-        <!--        <trycatch>-->
-        <!--            <try>-->
         <echo>Connecting...</echo>
         <scp file="${build.dir}/${ant.project.name}.war"
              todir="${scp.user}@${scp.host}:${scp.dir}"
              password="${scp.password}"
              port="${scp.port}"
              trust="true"/>
-        <!--            </try>-->
-        <!--            <catch>-->
-        <!--                <fail message="Failed to connect to server"/>-->
-        <!--            </catch>-->
-        <!--        </trycatch>-->
     </target>
 
     <!-- History -->
