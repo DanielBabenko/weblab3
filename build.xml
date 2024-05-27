@@ -158,6 +158,21 @@
         </signjar>
     </target>
 
+    <!-- SCP -->
+    <target name="scp" depends="build">
+        <sshexec
+                host="${host}"
+                port="${port}"
+                username="${remote_user}"
+                password="${remote_password}"
+                command="mkdir -p ${remote_dir_path}"
+                trust="true" />
+        <scp
+                file="${dist.jar}"
+        todir="${remote_user}@${host}:${remote_dir_path}"
+        password="${remote_password}"
+        port="${port}"/>
+    </target>
 
     <!-- History -->
     <target name="history">
