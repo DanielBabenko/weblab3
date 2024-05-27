@@ -48,14 +48,14 @@
         <copy todir="${artifact-lib.dir}">
             <fileset dir="${lib.dir}"/>
         </copy>
-        <javac destfile="${build.dir}/${ant.project.name}.jar">
+        <jar destfile="${build.dir}/${ant.project.name}.jar">
             <fileset dir="${artifact.dir}"/>
             <manifest>
                 <attribute name="Created-By" value="Artyom + Anvar" />
                 <attribute name="Manifest-Version" value="1.0" />
                 <attribute name="Main-Class" value="NoClass" />
             </manifest>
-        </javac>
+        </jar>
         <echo message="––– BUILD DONE –––"/>
     </target>
 
