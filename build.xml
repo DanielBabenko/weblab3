@@ -42,13 +42,21 @@
 
     <!-- Build -->
     <target name="build" depends="compile">
-        <jar destfile="${dist.jar}" basedir="${target.classes}"
-             compress="false" index="true">
+        <copy todir="${artifact.dir}" >
+            <fileset dir="${web.dir}"/>
+        </copy>
+        <copy todir="${artifact-lib.dir}">
+            <fileset dir="${lib.dir}"/>
+        </copy>
+        <jar destfile="${build.dir}/${ant.project.name}.war">
+            <fileset dir="${artifact.dir}"/>
             <manifest>
-                <attribute name="Main-Class"
-                           value="io.github.web32909231800.Main"/>
+                <attribute name="Created-By" value="Artyom + Anvar" />
+                <attribute name="Manifest-Version" value="1.0" />
+                <attribute name="Main-Class" value="NoClass" />
             </manifest>
         </jar>
+        <echo message="––– BUILD DONE –––"/>
     </target>
 
     <!-- Test -->
