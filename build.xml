@@ -146,15 +146,15 @@
         <jar destfile="${dist.jar}" update="true">
             <fileset dir="." includes="${doc.dir}/**"/>
         </jar>
-        <signjar alias="web3"
-                 storepass="webWeb"
-                 keystore="${keystore}"
-                 sigalg="MD5withRSA"
-                 digestalg="SHA1">
-            <path>
-                <file file="${dist.jar}"/>
-            </path>
-        </signjar>
+<!--        <signjar alias="web3"-->
+<!--                 storepass="webWeb"-->
+<!--                 keystore="${keystore}"-->
+<!--                 sigalg="MD5withRSA"-->
+<!--                 digestalg="SHA1">-->
+<!--            <path>-->
+<!--                <file file="${dist.jar}"/>-->
+<!--            </path>-->
+<!--        </signjar>-->
     </target>
 
     <!-- SCP -->
