@@ -112,31 +112,31 @@
     </target>
 
     <!-- Doc -->
-<!--    <target name="doc" depends="build">-->
-<!--        <mkdir dir="docs"/>-->
-<!--        <signjar jar="${build.dir}/${ant.project.name}.jar"-->
-<!--                 alias="ant_keystore"-->
-<!--                 storepass="msc114"-->
-<!--                 keystore="keystore"-->
-<!--                 sigalg="MD5withRSA"-->
-<!--                 digestalg="SHA1"/>-->
-<!--        <javadoc-->
-<!--                destdir="docs"-->
-<!--                author="true"-->
-<!--                version="true"-->
-<!--                use="true">-->
-<!--            <classpath>-->
-<!--                <path refid="compile.path"/>-->
-<!--            </classpath>-->
-<!--            <fileset dir="${src.main.dir}"/>-->
-<!--        </javadoc>-->
-<!--        <jar destfile="${build.dir}/${ant.project.name}.jar"-->
-<!--             basedir="docs"-->
-<!--             update="true">-->
-<!--        </jar>-->
-<!--    </target>-->
-
     <target name="doc" depends="build">
+        <mkdir dir="docs"/>
+        <signjar jar="${build.dir}/${ant.project.name}.jar"
+                 alias="ant_keystore"
+                 storepass="msc114"
+                 keystore="keystore"
+                 sigalg="MD5withRSA"
+                 digestalg="SHA1"/>
+        <javadoc
+                destdir="docs"
+                author="true"
+                version="true"
+                use="true">
+            <classpath>
+                <path refid="compile.path"/>
+            </classpath>
+            <fileset dir="${src.main.dir}"/>
+        </javadoc>
+        <jar destfile="${build.dir}/${ant.project.name}.jar"
+             basedir="docs"
+             update="true">
+        </jar>
+    </target>
+
+    <target name="coc" depends="build">
         <mkdir dir="${doc.dir}"/>
         <javadoc destdir="${doc.dir}">
             <classpath refid="classpath.source"/>
