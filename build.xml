@@ -48,7 +48,7 @@
         <copy todir="${artifact-lib.dir}">
             <fileset dir="${lib.dir}"/>
         </copy>
-        <jar destfile="${build.dir}/${ant.project.name}.war">
+        <jar destfile="${build.dir}/${ant.project.name}.jar">
             <fileset dir="${artifact.dir}"/>
             <manifest>
                 <attribute name="Created-By" value="Artyom + Anvar" />
