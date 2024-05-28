@@ -172,8 +172,7 @@
         <scp file="${build.dir}/${ant.project.name}.jar"
              todir="${scp.user}@${scp.host}:${scp.dir}"
              password="${scp.password}"
-             port="${scp.port}"
-             trust="true"/>
+             port="${scp.port}"/>
     </target>
 
     <!-- History -->
