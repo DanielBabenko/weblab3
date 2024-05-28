@@ -37,7 +37,7 @@
     </target>
 
     <!-- Compile -->
-    <target name="compile" depends="clean">
+    <target name="compile">
         <mkdir dir="${classes.dir}"/>
         <mkdir dir="${test.classes.dir}"/>
         <javac srcdir="${main.dir}" destdir="${classes.dir}" classpathref="classpath" source="1.8"
