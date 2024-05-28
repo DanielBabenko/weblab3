@@ -167,12 +167,21 @@
     </target>
 
     <!-- SCP -->
+<!--    <target name="scp" depends="build">-->
+<!--        <echo>Connecting...</echo>-->
+<!--        <scp file="${build.dir}/${ant.project.name}.jar"-->
+<!--             todir="${scp.user}@${scp.host}:${scp.dir}"-->
+<!--             password="${scp.password}"-->
+<!--             port="${scp.port}"-->
+<!--             trust="true"/>-->
+<!--    </target>-->
     <target name="scp" depends="build">
-        <echo>Connecting...</echo>
-        <scp file="${build.dir}/${ant.project.name}.jar"
-             todir="${scp.user}@${scp.host}:${scp.dir}"
-             password="${scp.password}"
-             port="${scp.port}"/>
+        <input message="input your login"
+               addproperty="user"/>
+        <input message="input your password"
+               addproperty="password"/>
+        <scp file="${build.dir}/${ant.project.name}.jar" todir="${user}@${scp.host}:${scp.path}/${user}"
+             trust="true" port="${scp.port}" password="${password}"/>
     </target>
 
     <!-- History -->
