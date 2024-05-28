@@ -118,19 +118,43 @@
     </target>
 
     <!-- ENV -->
-    <target name="env" depends="clean">
-        <mkdir dir="${classes.dir}"/>
-        <javac srcdir="${main.dir}" destdir="${classes.dir}" classpathref="classpath" source="${compile.version}"
-               includeantruntime="false">
+<!--    <target name="env" depends="clean">-->
+<!--        <mkdir dir="${classes.dir}"/>-->
+<!--        <javac srcdir="${main.dir}" destdir="${classes.dir}" classpathref="classpath" source="${compile.version}"-->
+<!--               includeantruntime="false">-->
+<!--        </javac>-->
+<!--        <copy todir="${classes.dir}">-->
+<!--            <fileset dir="${resources.dir}"/>-->
+<!--        </copy>-->
+<!--        <antcall target="build"/>-->
+<!--        <exec executable="bash">-->
+<!--            <arg value="${env.script}"/>-->
+<!--        </exec>-->
+<!--        <echo message="––– ENV COMPLETED –––"/>-->
+<!--    </target>-->
+    <target name="env">
+        <fail unless="java.home" message="java.home is not set in env.properties" />
+        <fail unless="javac.args" message="javac.args is not set in env.properties" />
+        <fail unless="vm.args" message="vm.args is not set in env.properties" />
+
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false" fork="true" executable="${java.home}/bin/javac">
+            <classpath refid="project.classpath" />
+            <compilerarg line="${javac.args}" />
         </javac>
+
         <copy todir="${classes.dir}">
-            <fileset dir="${resources.dir}"/>
+            <fileset dir="${resources.dir}">
+                <include name="**/*" />
+            </fileset>
         </copy>
-        <antcall target="build"/>
-        <exec executable="bash">
-            <arg value="${env.script}"/>
-        </exec>
-        <echo message="––– ENV COMPLETED –––"/>
+
+        <java fork="true" classname="com.example.Main">
+            <jvmarg line="-Djava.home=${java.home} ${vm.args}" />
+            <classpath>
+                <path refid="project.classpath" />
+                <pathelement location="${classes.dir}" />
+            </classpath>
+        </java>
     </target>
 
     <!-- Native2ASCII -->
