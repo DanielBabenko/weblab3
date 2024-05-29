@@ -67,23 +67,48 @@
         <echo message="––– BUILD DONE –––"/>
     </target>
 
-    <!-- Test -->
-    <target name="test" depends="compile">
-        <mkdir dir="${junit.report.dir}"/>
-        <javac destdir="${test.classes.dir}" srcdir="${test.dir}" includeantruntime="false"
-               classpathref="classpath.test"/>
-        <junit printsummary="on" haltonfailure="yes">
-            <classpath>
-                <path refid="classpath.test"/>
-                <pathelement location="${test.classes.dir}"/>
-            </classpath>
-            <batchtest fork="yes" todir="${junit.report.dir}">
-                <formatter type="xml"/>
-                <fileset dir="${test.dir}" includes="*Test*.java"/>
-            </batchtest>
-        </junit>
-        <echo message="––– TESTS COMPLETED –––"/>
+    <target name="compileTest" depends="init">
+        <javac destdir="${target.tests}"
+               srcdir="${test.source}">
+            <classpath refid="classpath.testSource"/>
+        </javac>
+        <echo message="Successfully compiled tests"/>
     </target>
+
+    <!-- Test -->
+    <target name="test" depends="compileTest">
+        <mkdir dir="${test.result.dir}"/>
+        <junitlauncher printsummary="on" haltonfailure="yes">
+            <classpath refid="classpath.testSource"/>
+            <testclasses outputdir="${test.result.dir}">
+                <fileset dir="${target.tests}" includes="**/*.class" />
+                <listener type="legacy-xml" sendSysOut="true" sendSysErr="true"/>
+            </testclasses>
+        </junitlauncher>
+        <echo message="Test completed"/>
+    </target>
+
+    <target name="xml">
+        <xmlvalidate failonerror="no" lenient="yes">
+            <fileset dir="${project.dir}" includes="**/*.xml"/>
+        </xmlvalidate>
+    </target>
+<!--    <target name="test" depends="compile">-->
+<!--        <mkdir dir="${junit.report.dir}"/>-->
+<!--        <javac destdir="${test.classes.dir}" srcdir="${test.dir}" includeantruntime="false"-->
+<!--               classpathref="classpath.test"/>-->
+<!--        <junit printsummary="on" haltonfailure="yes">-->
+<!--            <classpath>-->
+<!--                <path refid="classpath.test"/>-->
+<!--                <pathelement location="${test.classes.dir}"/>-->
+<!--            </classpath>-->
+<!--            <batchtest fork="yes" todir="${junit.report.dir}">-->
+<!--                <formatter type="xml"/>-->
+<!--                <fileset dir="${test.dir}" includes="*Test*.java"/>-->
+<!--            </batchtest>-->
+<!--        </junit>-->
+<!--        <echo message="––– TESTS COMPLETED –––"/>-->
+<!--    </target>-->
 <!--    <target name="test" depends="build" description="Compiling and testing">-->
 <!--        <echo>Creating reports directory...</echo>-->
 <!--        <mkdir dir="${test.report.dir}"/>-->
