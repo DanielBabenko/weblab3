@@ -92,7 +92,7 @@
             <classpath>
                 <path refid="lib.test.path"/>
                 <pathelement location="${build.dir}"/>
-                <pathelement location="${build.classes.dir}"/>
+                <pathelement location="${classes.dir}"/>
                 <pathelement location="${test.dir}"/>
             </classpath>
             <testclasses outputdir="${test.report.dir}">
@@ -182,13 +182,13 @@
                 port="${scp.port}"
                 username="${scp.user}"
                 password="${scp.password}"
-                command="mkdir -p ${remote_dir_path}"
+                command="mkdir -p ${scp.dir}"
                 trust="true" />
         <scp
                 file="${dist.jar}"
-                todir="${remote_user}@${host}:${remote_dir_path}"
-                password="${remote_password}"
-                port="${port}"/>
+                todir="${scp.user}@${scp.host}:${scp.dir}"
+                password="${scp.password}"
+                port="${scp.port}"/>
     </target>
 
     <!-- History -->
