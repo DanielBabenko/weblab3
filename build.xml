@@ -167,13 +167,28 @@
     </target>
 
     <!-- SCP -->
+<!--    <target name="scp" depends="build">-->
+<!--        <echo>Connecting...</echo>-->
+<!--        <scp file="${build.dir}/${ant.project.name}.jar"-->
+<!--             todir="${scp.user}@${scp.host}:${scp.dir}"-->
+<!--             password="${scp.password}"-->
+<!--             port="${scp.port}"-->
+<!--             trust="true"/>-->
+<!--    </target>-->
+
     <target name="scp" depends="build">
-        <echo>Connecting...</echo>
-        <scp file="${build.dir}/${ant.project.name}.jar"
-             todir="${scp.user}@${scp.host}:${scp.dir}"
-             password="${scp.password}"
-             port="${scp.port}"
-             trust="true"/>
+        <sshexec
+                host="${host}"
+                port="${port}"
+                username="${remote_user}"
+                password="${remote_password}"
+                command="mkdir -p ${remote_dir_path}"
+                trust="true" />
+        <scp
+                file="${dist.jar}"
+                todir="${remote_user}@${host}:${remote_dir_path}"
+                password="${remote_password}"
+                port="${port}"/>
     </target>
 
     <!-- History -->
