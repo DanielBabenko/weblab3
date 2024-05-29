@@ -3,6 +3,7 @@ package utils;
 public class Checker {
 
     static boolean isValid;
+
     public static boolean checkHit(double x, double y, double r) {
 
         if (x > -5 && x < 3 && y > -5 && y < 3 && r > 1 && r < 4) {
