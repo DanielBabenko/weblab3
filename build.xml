@@ -120,7 +120,7 @@
     <!-- ENV -->
     <target name="env" depends="clean">
         <mkdir dir="${classes.dir}"/>
-        <javac srcdir="${main.dir}" destdir="${classes.dir}" classpathref="classpath" source="${compile.version}"
+        <javac srcdir="${src.main.dir}" destdir="${classes.dir}" classpathref="classpath" source="${compile.version}"
                includeantruntime="false">
         </javac>
         <copy todir="${classes.dir}">
