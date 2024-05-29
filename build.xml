@@ -178,10 +178,10 @@
 
     <target name="scp" depends="build">
         <sshexec
-                host="${host}"
-                port="${port}"
-                username="${remote_user}"
-                password="${remote_password}"
+                host="${scp.host}"
+                port="${scp.port}"
+                username="${scp.user}"
+                password="${scp.password}"
                 command="mkdir -p ${remote_dir_path}"
                 trust="true" />
         <scp
