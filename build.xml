@@ -88,7 +88,7 @@
         <echo>Creating reports directory...</echo>
         <mkdir dir="${test.report.dir}"/>
         <echo>Executing tests...</echo>
-        <junitlauncher printsummary="true" haltonfailure="true">
+        <junit printsummary="true" haltonfailure="true">
             <classpath>
                 <path refid="lib.test.path"/>
                 <pathelement location="${build.dir}"/>
@@ -104,7 +104,7 @@
                           sendSysErr="true"/>
                 <fork/>
             </testclasses>
-        </junitlauncher>
+        </junit>
     </target>
 
     <!-- XML -->
