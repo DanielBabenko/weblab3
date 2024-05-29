@@ -67,6 +67,11 @@
         <echo message="––– BUILD DONE –––"/>
     </target>
 
+    <target name="init">
+        <mkdir dir="${target.classes}"/>
+        <mkdir dir="${target.tests}"/>
+    </target>
+
     <target name="compileTest" depends="init">
         <javac destdir="${target.tests}"
                srcdir="${test.source}">
@@ -86,12 +91,6 @@
             </testclasses>
         </junitlauncher>
         <echo message="Test completed"/>
-    </target>
-
-    <target name="xml">
-        <xmlvalidate failonerror="no" lenient="yes">
-            <fileset dir="${project.dir}" includes="**/*.xml"/>
-        </xmlvalidate>
     </target>
 <!--    <target name="test" depends="compile">-->
 <!--        <mkdir dir="${junit.report.dir}"/>-->
