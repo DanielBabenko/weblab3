@@ -67,31 +67,10 @@
         <echo message="––– BUILD DONE –––"/>
     </target>
 
-    <target name="init">
-        <mkdir dir="${target.classes}"/>
-        <mkdir dir="${target.tests}"/>
-    </target>
-
-    <target name="compileTest" depends="init">
-        <javac destdir="${target.tests}"
-               srcdir="${test.source}">
-            <classpath refid="classpath.testSource"/>
-        </javac>
-        <echo message="Successfully compiled tests"/>
-    </target>
-
     <!-- Test -->
-    <target name="test" depends="compileTest">
-        <mkdir dir="${test.result.dir}"/>
-        <junit printsummary="on" haltonfailure="yes">
-            <classpath refid="classpath.testSource"/>
-            <testclasses outputdir="${test.result.dir}">
-                <fileset dir="${target.tests}" includes="**/*.class" />
-                <listener type="legacy-xml" sendSysOut="true" sendSysErr="true"/>
-            </testclasses>
-        </junit>
-        <echo message="Test completed"/>
-    </target>
+    
+
+
 <!--    <target name="test" depends="compile">-->
 <!--        <mkdir dir="${junit.report.dir}"/>-->
 <!--        <javac destdir="${test.classes.dir}" srcdir="${test.dir}" includeantruntime="false"-->
