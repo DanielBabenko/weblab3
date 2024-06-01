@@ -69,22 +69,22 @@
 
     <!-- Test -->
 
-<!--    <target name="test" depends="compile">-->
-<!--        <mkdir dir="${junit.report.dir}"/>-->
-<!--        <javac destdir="${test.classes.dir}" srcdir="${test.dir}" includeantruntime="false"-->
-<!--               classpathref="classpath.test"/>-->
-<!--        <junit printsummary="on" haltonfailure="yes">-->
-<!--            <classpath>-->
-<!--                <path refid="classpath.test"/>-->
-<!--                <pathelement location="${test.classes.dir}"/>-->
-<!--            </classpath>-->
-<!--            <batchtest fork="yes" todir="${junit.report.dir}">-->
-<!--                <formatter type="xml"/>-->
-<!--                <fileset dir="${test.dir}" includes="*Test*.java"/>-->
-<!--            </batchtest>-->
-<!--        </junit>-->
-<!--        <echo message="––– TESTS COMPLETED –––"/>-->
-<!--    </target>-->
+    <target name="test" depends="compile">
+        <mkdir dir="${junit.report.dir}"/>
+        <javac destdir="${test.classes.dir}" srcdir="${test.dir}" includeantruntime="false"
+               classpathref="classpath.test"/>
+        <junit printsummary="on" haltonfailure="yes">
+            <classpath>
+                <path refid="classpath.test"/>
+                <pathelement location="${test.classes.dir}"/>
+            </classpath>
+            <batchtest fork="yes" todir="${junit.report.dir}">
+                <formatter type="xml"/>
+                <fileset dir="${test.dir}" includes="*Test*.java"/>
+            </batchtest>
+        </junit>
+        <echo message="––– TESTS COMPLETED –––"/>
+    </target>
 <!--    <target name="test" depends="build" description="Compiling and testing">-->
 <!--        <echo>Creating reports directory...</echo>-->
 <!--        <mkdir dir="${test.report.dir}"/>-->
