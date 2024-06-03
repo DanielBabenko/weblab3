@@ -80,7 +80,7 @@
     <!-- Test -->
     <target name="test" depends="compileTest">
         <mkdir dir="${test.result.dir}"/>
-        <junitlauncher printsummary="on" haltonfailure="yes">
+        <junitlauncher haltonfailure="true" printsummary="true">
             <classpath refid="classpath.testSource"/>
             <classpath>
                 <pathelement location="${target.tests}"/>
