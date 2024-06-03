@@ -115,11 +115,12 @@
             </classpath>
             <testclasses outputdir="${build.dir}/test-results">
                 <fileset dir="${build.dir}/test-classes" includes="**/*Test.class"/>
+                <listener type="legacy-xml" sendSysOut="true" sendSysErr="true"/>
             </testclasses>
         </junitlauncher>
     </target>
 
-    <!-- XML -->
+        <!-- XML -->
     <target name="xml">
         <xmlvalidate lenient="true">
             <fileset dir="${basedir}">
