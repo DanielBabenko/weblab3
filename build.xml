@@ -20,6 +20,15 @@
         <fileset dir="src/test/lib" includes="**/*.jar"/>
     </path>
 
+    <path id="test.classpath">
+        <path refid="project.classpath" />
+        <pathelement location="${build.dir}/webapp/WEB-INF/classes" />
+        <pathelement location="${build.dir}/test-classes" />
+        <fileset dir="${lib.dir}">
+            <include name="**/*.jar" />
+        </fileset>
+    </path>
+
     <!-- Clean -->
     <target name="clean">
         <delete dir="${build.dir}"/>
@@ -86,25 +95,20 @@
 <!--        </junitlauncher>-->
 <!--        <echo message="Test completed"/>-->
 <!--    </target>-->
-    <target name="test" depends="build" description="Compiling and testing">
-        <echo>Creating reports directory...</echo>
-        <mkdir dir="${test.report.dir}"/>
-        <echo>Executing tests...</echo>
-        <junitlauncher printsummary="true" haltonfailure="true">
+    <target name="test" depends="build">
+        <mkdir dir="${build.dir}/test-classes"/>
+        <javac srcdir="${test.dir}" destdir="${build.dir}/test-classes" includeantruntime="false" classpathref="test.classpath">
+            <compilerarg line="-Xlint:unchecked"/>
+        </javac>
+
+        <mkdir dir="${build.dir}/test-results"/>
+        <junitlauncher haltonfailure="true" printsummary="true">
             <classpath>
-                <path refid="target.tests"/>
-                <pathelement location="${build.dir}"/>
-                <pathelement location="${build.classes.dir}"/>
-                <pathelement location="${test.dir}"/>
+                <path refid="test.classpath"/>
+                <pathelement location="${build.dir}/test-classes"/>
             </classpath>
-            <testclasses outputdir="${test.report.dir}">
-                <fileset dir="${test.dir}">
-                    <include name="**/*Test*.class"/>
-                </fileset>
-                <listener type="legacy-xml"
-                          sendSysOut="true"
-                          sendSysErr="true"/>
-                <fork/>
+            <testclasses outputdir="${build.dir}/test-results">
+                <fileset dir="${build.dir}/test-classes" includes="**/*Test.class"/>
             </testclasses>
         </junitlauncher>
     </target>
