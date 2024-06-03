@@ -72,58 +72,7 @@
         <echo message="––– BUILD DONE –––"/>
     </target>
 
-    <target name="compileTest">
-        <mkdir dir="${target.tests}"/>
-        <javac destdir="${target.tests}"
-               includeantruntime="false"
-               srcdir="${test.source}"
-               debug="on">
-            <classpath refid="classpath.testSource"/>
-        </javac>
-    </target>
-
     <!-- Test -->
-<!--    <target name="test" depends="compileTest">-->
-<!--        <mkdir dir="${test.result.dir}"/>-->
-<!--        <junitlauncher haltonfailure="true" printsummary="true">-->
-<!--            <classpath refid="classpath.testSource"/>-->
-<!--            <classpath>-->
-<!--                <pathelement location="${target.tests}"/>-->
-<!--            </classpath>-->
-<!--            <testclasses outputdir="${test.result.dir}">-->
-<!--                <fileset dir="${target.tests}">-->
-<!--                    <include name="**/*.class"/>-->
-<!--                </fileset>-->
-<!--                <listener type="legacy-xml" sendSysOut="true"-->
-<!--                          sendSysErr="true"/>-->
-<!--            </testclasses>-->
-<!--        </junitlauncher>-->
-<!--        <echo message="Test completed"/>-->
-<!--    </target>-->
-<!--    <target name="test" depends="build">-->
-<!--        <mkdir dir="${build.dir}/test-classes"/>-->
-<!--        <javac srcdir="${test.dir}" destdir="${build.dir}/test-classes" includeantruntime="false" classpathref="test.classpath">-->
-<!--            <compilerarg line="-Xlint:unchecked"/>-->
-<!--        </javac>-->
-
-<!--        <mkdir dir="${build.dir}/test-results"/>-->
-<!--        <junitlauncher haltonfailure="true" printsummary="true">-->
-<!--            <classpath>-->
-<!--                <path refid="test.classpath"/>-->
-<!--                <pathelement location="${build.dir}/test-classes"/>-->
-<!--            </classpath>-->
-<!--            <testclasses outputdir="${build.dir}/test-results">-->
-<!--                <fileset dir="${build.dir}/test-classes" includes="**/*Test.java"/>-->
-<!--                <listener type="legacy-xml" sendSysOut="true" sendSysErr="true"/>-->
-<!--            </testclasses>-->
-<!--        </junitlauncher>-->
-<!--    </target>-->
-    <path id="classpath.test">
-        <pathelement location="${junit.lib}"/>
-        <pathelement location="${hamcrest.lib}"/>
-        <pathelement location="${classes.dir}"/>
-    </path>
-
     <target name="test" depends="build">
         <mkdir dir="${test.classes.dir}"/>
         <mkdir dir="${junit.report.dir}"/>
