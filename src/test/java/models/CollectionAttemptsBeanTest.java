@@ -9,6 +9,18 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import static org.junit.Assert.*;
 
 public class CollectionAttemptsBeanTest {
+
+    @Test
+    public void clearTest(){
+        List<Attempt> expected = new CopyOnWriteArrayList<>();
+
+        CollectionAttemptsBean bean = new CollectionAttemptsBean();
+        bean.clear();
+
+        List<Attempt> actual = bean.getAttempts();
+        assertEquals(expected, actual);
+    }
+
     @Test
     public void normTest(){
         CollectionAttemptsBean bean = new CollectionAttemptsBean();
@@ -29,5 +41,6 @@ public class CollectionAttemptsBeanTest {
         List<Attempt> actualAttempts = bean.getAttempts();
 
         assertEquals(expectedAttempts, actualAttempts);
+        bean.clear();
     }
 }

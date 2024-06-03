@@ -4,7 +4,6 @@ import utils.Checker;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.text.DecimalFormat;
 import java.util.Objects;
 
 @Entity
