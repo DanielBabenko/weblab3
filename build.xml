@@ -78,45 +78,45 @@
     </target>
 
     <!-- Test -->
-<!--    <target name="test" depends="compileTest">-->
-<!--        <mkdir dir="${test.result.dir}"/>-->
-<!--        <junitlauncher haltonfailure="true" printsummary="true">-->
-<!--            <classpath refid="classpath.testSource"/>-->
-<!--            <classpath>-->
-<!--                <pathelement location="${target.tests}"/>-->
-<!--            </classpath>-->
-<!--            <testclasses outputdir="${test.result.dir}">-->
-<!--                <fileset dir="${target.tests}">-->
-<!--                    <include name="**/*.class"/>-->
-<!--                </fileset>-->
-<!--                <listener type="legacy-xml" sendSysOut="true"-->
-<!--                          sendSysErr="true"/>-->
-<!--            </testclasses>-->
-<!--        </junitlauncher>-->
-<!--        <echo message="Test completed"/>-->
-<!--    </target>-->
-    <target name="test" depends="build" description="Compiling and testing">
-        <echo>Creating reports directory...</echo>
-        <mkdir dir="${test.report.dir}"/>
-        <echo>Executing tests...</echo>
-        <junitlauncher printsummary="true" haltonfailure="true">
+    <target name="test" depends="compileTest">
+        <mkdir dir="${test.result.dir}"/>
+        <junitlauncher haltonfailure="true" printsummary="true">
+            <classpath refid="classpath.testSource"/>
             <classpath>
-                <path refid="lib.test.path"/>
-                <pathelement location="${build.dir}"/>
-                <pathelement location="${build.classes.dir}"/>
-                <pathelement location="${test.dir}"/>
+                <pathelement location="${target.tests}"/>
             </classpath>
-            <testclasses outputdir="${test.report.dir}">
-                <fileset dir="${test.dir}">
+            <testclasses outputdir="${test.result.dir}">
+                <fileset dir="${target.tests}">
                     <include name="**/*Test*.class"/>
                 </fileset>
-                <listener type="legacy-xml"
-                          sendSysOut="true"
+                <listener type="legacy-xml" sendSysOut="true"
                           sendSysErr="true"/>
-                <fork/>
             </testclasses>
         </junitlauncher>
+        <echo message="Test completed"/>
     </target>
+<!--    <target name="test" depends="build" description="Compiling and testing">-->
+<!--        <echo>Creating reports directory...</echo>-->
+<!--        <mkdir dir="${test.report.dir}"/>-->
+<!--        <echo>Executing tests...</echo>-->
+<!--        <junitlauncher printsummary="true" haltonfailure="true">-->
+<!--            <classpath>-->
+<!--                <path refid="lib.test.path"/>-->
+<!--                <pathelement location="${build.dir}"/>-->
+<!--                <pathelement location="${build.classes.dir}"/>-->
+<!--                <pathelement location="${test.dir}"/>-->
+<!--            </classpath>-->
+<!--            <testclasses outputdir="${test.report.dir}">-->
+<!--                <fileset dir="${test.dir}">-->
+<!--                    <include name="**/*Test*.class"/>-->
+<!--                </fileset>-->
+<!--                <listener type="legacy-xml"-->
+<!--                          sendSysOut="true"-->
+<!--                          sendSysErr="true"/>-->
+<!--                <fork/>-->
+<!--            </testclasses>-->
+<!--        </junitlauncher>-->
+<!--    </target>-->
 
     <!-- XML -->
     <target name="xml">
