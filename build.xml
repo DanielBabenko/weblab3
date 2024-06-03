@@ -153,21 +153,6 @@
              trust="true"/>
     </target>
 
-<!--    <target name="scp" depends="build">-->
-<!--        <sshexec-->
-<!--                host="${scp.host}"-->
-<!--                port="${scp.port}"-->
-<!--                username="${scp.user}"-->
-<!--                password="${scp.password}"-->
-<!--                command="mkdir -p ${scp.dir}"-->
-<!--                trust="true" />-->
-<!--        <scp-->
-<!--                file="${dist.jar}"-->
-<!--                todir="${scp.user}@${scp.host}:${scp.dir}"-->
-<!--                password="${scp.password}"-->
-<!--                port="${scp.port}"/>-->
-<!--    </target>-->
-
     <!-- History -->
     <target name="history">
         <exec executable="git" outputproperty="current.revision" failonerror="false">
@@ -217,7 +202,7 @@
     </target>
 
     <!-- Report -->
-    <target name="report" depends="test" description="If all test pass then create junit, git add and commit">
+    <target name="report" depends="test">
         <mkdir dir="${doc.report.dir}"/>
         <copy todir="${doc.report.dir}">
             <fileset dir="${test.dir}" includes="*.xml"/>
