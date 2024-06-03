@@ -101,23 +101,44 @@
 <!--        </junitlauncher>-->
 <!--        <echo message="Test completed"/>-->
 <!--    </target>-->
-    <target name="test" depends="build">
-        <mkdir dir="${build.dir}/test-classes"/>
-        <javac srcdir="${test.dir}" destdir="${build.dir}/test-classes" includeantruntime="false" classpathref="test.classpath">
-            <compilerarg line="-Xlint:unchecked"/>
-        </javac>
+<!--    <target name="test" depends="build">-->
+<!--        <mkdir dir="${build.dir}/test-classes"/>-->
+<!--        <javac srcdir="${test.dir}" destdir="${build.dir}/test-classes" includeantruntime="false" classpathref="test.classpath">-->
+<!--            <compilerarg line="-Xlint:unchecked"/>-->
+<!--        </javac>-->
 
-        <mkdir dir="${build.dir}/test-results"/>
-        <junitlauncher haltonfailure="true" printsummary="true">
+<!--        <mkdir dir="${build.dir}/test-results"/>-->
+<!--        <junitlauncher haltonfailure="true" printsummary="true">-->
+<!--            <classpath>-->
+<!--                <path refid="test.classpath"/>-->
+<!--                <pathelement location="${build.dir}/test-classes"/>-->
+<!--            </classpath>-->
+<!--            <testclasses outputdir="${build.dir}/test-results">-->
+<!--                <fileset dir="${build.dir}/test-classes" includes="**/*Test.java"/>-->
+<!--                <listener type="legacy-xml" sendSysOut="true" sendSysErr="true"/>-->
+<!--            </testclasses>-->
+<!--        </junitlauncher>-->
+<!--    </target>-->
+    <path id="classpath.test">
+        <pathelement location="${junit.lib}"/>
+        <pathelement location="${hamcrest.lib}"/>
+        <pathelement location="${classes.dir}"/>
+    </path>
+
+    <target name="test" depends="build">
+        <mkdir dir="${test.classes.dir}"/>
+        <mkdir dir="${junit.report.dir}"/>
+        <javac destdir="${test.classes.dir}" srcdir="${test.dir}" classpathref="classpath.test" includeantruntime="false"/>
+        <junit printsummary="yes" haltonfailure="true" haltonerror="true">
             <classpath>
-                <path refid="test.classpath"/>
-                <pathelement location="${build.dir}/test-classes"/>
+                <path refid="classpath.test"/>
+                <pathelement location="${test.classes.dir}"/>
             </classpath>
-            <testclasses outputdir="${build.dir}/test-results">
-                <fileset dir="${build.dir}/test-classes" includes="**/*Test.java"/>
-                <listener type="legacy-xml" sendSysOut="true" sendSysErr="true"/>
-            </testclasses>
-        </junitlauncher>
+            <batchtest fork="yes" todir="${junit.report.dir}">
+                <formatter type="xml"/>
+                <fileset dir="${test.dir}" includes="*Test.java"/>
+            </batchtest>
+        </junit>
     </target>
 
         <!-- XML -->
