@@ -25,8 +25,8 @@ public class CollectionAttemptsBeanTest {
     public void normTest(){
         CollectionAttemptsBean bean = new CollectionAttemptsBean();
         Attempt attempt1 = new Attempt(3, 3, 2);
-        Attempt attempt2 = new Attempt(4, -1, 2);
-        Attempt attempt3 = new Attempt(0, -2, 1);
+        Attempt attempt2 = new Attempt(4, -1.1, 2.5);
+        Attempt attempt3 = new Attempt(0.01, -2, 1);
 
         bean.clear();
         bean.add(attempt1);
