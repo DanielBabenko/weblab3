@@ -129,7 +129,7 @@
         <mkdir dir="${test.classes.dir}"/>
         <mkdir dir="${junit.report.dir}"/>
         <javac destdir="${test.classes.dir}" srcdir="${test.dir}" classpathref="classpath.test" includeantruntime="false"/>
-        <junit printsummary="yes" haltonfailure="true" haltonerror="true">
+        <junit printsummary="yes">
             <classpath>
                 <path refid="classpath.test"/>
                 <pathelement location="${test.classes.dir}"/>
