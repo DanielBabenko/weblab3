@@ -75,7 +75,7 @@
                debug="on">
             <classpath refid="classpath.testSource"/>
         </javac>
-    </target
+    </target>
 
     <!-- Test -->
     <target name="test" depends="compileTest">
@@ -95,8 +95,6 @@
         </junit>
         <echo message="Test completed"/>
     </target>
-
-
 
     <!-- XML -->
     <target name="xml">
