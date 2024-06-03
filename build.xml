@@ -20,15 +20,6 @@
         <fileset dir="src/test/lib" includes="**/*.jar"/>
     </path>
 
-    <path id="lib.main.path">
-        <fileset dir="${lib.main.dir}" includes="**/*.jar"/>
-    </path>
-
-    <path id="lib.test.path">
-        <path refid="lib.main.path"/>
-        <fileset dir="${lib.test.dir}" includes="**/*.jar"/>
-    </path>
-
     <!-- Clean -->
     <target name="clean">
         <delete dir="${build.dir}"/>
@@ -101,7 +92,7 @@
         <echo>Executing tests...</echo>
         <junitlauncher printsummary="true" haltonfailure="true">
             <classpath>
-                <path refid="lib.test.path"/>
+                <path refid="target.tests"/>
                 <pathelement location="${build.dir}"/>
                 <pathelement location="${build.classes.dir}"/>
                 <pathelement location="${test.dir}"/>
