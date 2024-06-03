@@ -80,7 +80,7 @@
     <!-- Test -->
     <target name="test" depends="compileTest">
         <mkdir dir="${test.result.dir}"/>
-        <junit printsummary="on" haltonfailure="yes">
+        <junitlauncher printsummary="on" haltonfailure="yes">
             <classpath refid="classpath.testSource"/>
             <classpath>
                 <pathelement location="${target.tests}"/>
@@ -92,7 +92,7 @@
                 <listener type="legacy-xml" sendSysOut="true"
                           sendSysErr="true"/>
             </testclasses>
-        </junit>
+        </junitlauncher>
         <echo message="Test completed"/>
     </target>
 
