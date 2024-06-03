@@ -114,7 +114,7 @@
                 <pathelement location="${build.dir}/test-classes"/>
             </classpath>
             <testclasses outputdir="${build.dir}/test-results">
-                <fileset dir="${build.dir}/test-classes" includes="**/*Test.class"/>
+                <fileset dir="${build.dir}/test-classes" includes="**/**/**/*Test.class"/>
                 <listener type="legacy-xml" sendSysOut="true" sendSysErr="true"/>
             </testclasses>
         </junitlauncher>
