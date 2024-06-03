@@ -65,7 +65,6 @@
         <jar destfile="${build.dir}/${ant.project.name}.jar">
             <fileset dir="${artifact.dir}"/>
             <manifest>
-                <attribute name="Created-By" value="Artyom + Anvar" />
                 <attribute name="Manifest-Version" value="1.0" />
                 <attribute name="Main-Class" value="NoClass" />
             </manifest>
@@ -128,10 +127,10 @@
     <target name="test" depends="build">
         <mkdir dir="${test.classes.dir}"/>
         <mkdir dir="${junit.report.dir}"/>
-        <javac destdir="${test.classes.dir}" srcdir="${test.dir}" classpathref="classpath.test" includeantruntime="false"/>
-        <junit printsummary="yes">
+        <javac destdir="${test.classes.dir}" srcdir="${test.dir}" classpathref="classpath.testSource" includeantruntime="false"/>
+        <junit printsummary="yes" haltonfailure="true" haltonerror="true">
             <classpath>
-                <path refid="classpath.test"/>
+                <path refid="classpath.testSource"/>
                 <pathelement location="${test.classes.dir}"/>
             </classpath>
             <batchtest fork="yes" todir="${junit.report.dir}">
