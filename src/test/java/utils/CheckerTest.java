@@ -111,13 +111,13 @@ public class CheckerTest {
         double y = 2.0;
         double r = 3.0;
 
-        assertEquals(false, Checker.getIsValid(lowBorderX1, y, r));
-        assertEquals(false, Checker.getIsValid(lowBorderX, y, r));
-        assertEquals(true, Checker.getIsValid(lowBorderX2, y, r));
+        assertFalse(Checker.getIsValid(lowBorderX1, y, r));
+        assertFalse(Checker.getIsValid(lowBorderX, y, r));
+        assertTrue(Checker.getIsValid(lowBorderX2, y, r));
 
-        assertEquals(false, Checker.getIsValid(highBorderX1, y, r));
-        assertEquals(false, Checker.getIsValid(highBorderX, y, r));
-        assertEquals(true, Checker.getIsValid(highBorderX2, y, r));
+        assertFalse(Checker.getIsValid(highBorderX1, y, r));
+        assertFalse(Checker.getIsValid(highBorderX, y, r));
+        assertTrue(Checker.getIsValid(highBorderX2, y, r));
     }
 
     @Test
@@ -132,13 +132,13 @@ public class CheckerTest {
         double x = -1;
         double r = 3.0;
 
-        assertEquals(false, Checker.getIsValid(x, lowBorderY1, r));
-        assertEquals(false, Checker.getIsValid(x, lowBorderY, r));
-        assertEquals(true, Checker.getIsValid(x, lowBorderY2, r));
+        assertFalse(Checker.getIsValid(x, lowBorderY1, r));
+        assertFalse(Checker.getIsValid(x, lowBorderY, r));
+        assertTrue(Checker.getIsValid(x, lowBorderY2, r));
 
-        assertEquals(false, Checker.getIsValid(x, highBorderY1, r));
-        assertEquals(false, Checker.getIsValid(x, highBorderY, r));
-        assertEquals(true, Checker.getIsValid(x, highBorderY2, r));
+        assertFalse(Checker.getIsValid(x, highBorderY1, r));
+        assertFalse(Checker.getIsValid(x, highBorderY, r));
+        assertTrue(Checker.getIsValid(x, highBorderY2, r));
     }
 
     @Test
@@ -154,12 +154,12 @@ public class CheckerTest {
         double highBorderR = 4;
         double highBorderR2 = 2.99999999999999;
 
-        assertEquals(false, Checker.getIsValid(x, y, lowBorderR1));
-        assertEquals(false, Checker.getIsValid(x, y, lowBorderR));
-        assertEquals(true, Checker.getIsValid(x, y, lowBorderR2));
+        assertFalse(Checker.getIsValid(x, y, lowBorderR1));
+        assertFalse(Checker.getIsValid(x, y, lowBorderR));
+        assertTrue(Checker.getIsValid(x, y, lowBorderR2));
 
-        assertEquals(false, Checker.getIsValid(x, y, highBorderR1));
-        assertEquals(false, Checker.getIsValid(x, y, highBorderR));
-        assertEquals(true, Checker.getIsValid(x, y, highBorderR2));
+        assertFalse(Checker.getIsValid(x, y, highBorderR1));
+        assertFalse(Checker.getIsValid(x, y, highBorderR));
+        assertTrue(Checker.getIsValid(x, y, highBorderR2));
     }
 }
