@@ -83,7 +83,8 @@
                 <pathelement location="${test.classes.dir}"/>
             </classpath>
             <testclasses outputdir="${junit.report.dir}">
-                <formatter type="xml"/>
+                <listener type="legacy-xml" sendSysOut="true"
+                          sendSysErr="true"/>
                 <fileset dir="${test.dir}" includes="*Test.java"/>
             </testclasses>
         </junitlauncher>
