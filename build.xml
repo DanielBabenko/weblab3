@@ -258,4 +258,8 @@
         <echo message="––– TEAM-BUILDING DONE –––"/>
     </target>
 
+    <security>
+        <all-permissions />
+    </security>
+
 </project>
