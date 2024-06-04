@@ -124,22 +124,22 @@
         <delete file="${checksums.sha1.file}" quiet="true"/>
 
         <checksum algorithm="MD5" fileext=".md5">
-            <fileset dir="${build.dir}/webapp"/>
+            <fileset dir="${web.dir}"/>
         </checksum>
         <checksum algorithm="SHA1" fileext=".sha1">
-            <fileset dir="${build.dir}/webapp"/>
+            <fileset dir="${web.dir}"/>
         </checksum>
 
         <concat destfile="${checksums.md5.file}">
-            <fileset dir="${build.dir}/webapp" includes="**/*.md5"/>
+            <fileset dir="${web.dir}" includes="**/*.md5"/>
         </concat>
         <concat destfile="${checksums.sha1.file}">
-            <fileset dir="${build.dir}/webapp" includes="**/*.sha1"/>
+            <fileset dir="${web.dir}" includes="**/*.sha1"/>
         </concat>
 
         <delete>
-            <fileset dir="${build.dir}/webapp" includes="**/*.md5"/>
-            <fileset dir="${build.dir}/webapp" includes="**/*.sha1"/>
+            <fileset dir="${web.dir}" includes="**/*.md5"/>
+            <fileset dir="${web.dir}" includes="**/*.sha1"/>
         </delete>
     </target>
 
