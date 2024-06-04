@@ -77,17 +77,16 @@
         <mkdir dir="${test.classes.dir}"/>
         <mkdir dir="${junit.report.dir}"/>
         <javac destdir="${test.classes.dir}" srcdir="${test.dir}" classpathref="classpath.testSource" includeantruntime="false"/>
-        <junitlauncher printsummary="yes" haltonfailure="true">
+        <junit printsummary="yes" haltonfailure="true" haltonerror="true">
             <classpath>
                 <path refid="classpath.testSource"/>
                 <pathelement location="${test.classes.dir}"/>
             </classpath>
-            <testclasses outputdir="${junit.report.dir}">
-                <listener type="legacy-xml" sendSysOut="true"
-                          sendSysErr="true"/>
+            <batchtest fork="yes" todir="${junit.report.dir}">
+                <formatter type="xml"/>
                 <fileset dir="${test.dir}" includes="*Test.java"/>
-            </testclasses>
-        </junitlauncher>
+            </batchtest>
+        </junit>
     </target>
 
         <!-- XML -->
