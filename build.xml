@@ -119,73 +119,29 @@
     </target>
 
     <!-- Doc -->
-    <target name="generate-checksums">
-        <delete file="${checksums.md5.file}" quiet="true"/>
-        <delete file="${checksums.sha1.file}" quiet="true"/>
-
-        <checksum algorithm="MD5" fileext=".md5">
-            <fileset dir="${web.dir}"/>
-        </checksum>
-        <checksum algorithm="SHA1" fileext=".sha1">
-            <fileset dir="${web.dir}"/>
-        </checksum>
-
-        <concat destfile="${checksums.md5.file}">
-            <fileset dir="${web.dir}" includes="**/*.md5"/>
-        </concat>
-        <concat destfile="${checksums.sha1.file}">
-            <fileset dir="${web.dir}" includes="**/*.sha1"/>
-        </concat>
-
-        <delete>
-            <fileset dir="${web.dir}" includes="**/*.md5"/>
-            <fileset dir="${web.dir}" includes="**/*.sha1"/>
-        </delete>
-    </target>
-
-    <!-- Generate docs -->
-    <target name="doc" depends="build, generate-checksums">
-        <mkdir dir="${build.dir}/javadoc"/>
-        <javadoc sourcepath="${src.dir}" destdir="${build.dir}/javadoc" packagenames="*">
-            <classpath refid="project.classpath" />
+    <target name="doc" depends="build">
+        <mkdir dir="docs"/>
+        <signjar jar="${build.dir}/${ant.project.name}.jar"
+                 alias="ant_keystore"
+                 storepass="msc114"
+                 keystore="keystore"
+                 sigalg="MD5withRSA"
+                 digestalg="SHA1"/>
+        <javadoc
+                destdir="docs"
+                author="true"
+                version="true"
+                use="true">
+            <classpath>
+                <path refid="classpath"/>
+            </classpath>
+            <fileset dir="${src.main.dir}"/>
         </javadoc>
-
-        <loadfile property="md5" srcFile="${checksums.md5.file}"/>
-        <loadfile property="sha1" srcFile="${checksums.sha1.file}"/>
-
-        <manifest file="${build.dir}/webapp/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="MD5-Digest" value="${md5}"/>
-            <attribute name="SHA1-Digest" value="${sha1}"/>
-        </manifest>
-
-        <jar destfile="${build.dir}/${dist.jar.name}" update="true">
-            <fileset dir="${build.dir}/javadoc"/>
+        <jar destfile="${build.dir}/${ant.project.name}.jar"
+             basedir="docs"
+             update="true">
         </jar>
     </target>
-
-<!--    <target name="doc" depends="build">-->
-<!--        <mkdir dir="docs"/>-->
-<!--        <signjar jar="${build.dir}/${ant.project.name}.jar"-->
-<!--                 alias="ant_keystore"-->
-<!--                 storepass="msc114"-->
-<!--                 keystore="keystore"-->
-<!--                 sigalg="MD5withRSA"-->
-<!--                 digestalg="SHA1"/>-->
-<!--        <javadoc-->
-<!--                destdir="docs"-->
-<!--                author="true"-->
-<!--                version="true"-->
-<!--                use="true">-->
-<!--            <classpath>-->
-<!--                <path refid="classpath"/>-->
-<!--            </classpath>-->
-<!--            <fileset dir="${src.main.dir}"/>-->
-<!--        </javadoc>-->
-<!--        <jar destfile="${build.dir}/${ant.project.name}.jar"-->
-<!--             basedir="docs"-->
-<!--             update="true">-->
-<!--        </jar>-->
-<!--    </target>-->
 
     <!-- SCP -->
     <target name="scp" depends="build">
