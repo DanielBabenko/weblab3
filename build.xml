@@ -82,10 +82,10 @@
                 <path refid="classpath.testSource"/>
                 <pathelement location="${test.classes.dir}"/>
             </classpath>
-            <batchtest fork="yes" todir="${junit.report.dir}">
+            <testclasses outputdir="${junit.report.dir}">
                 <formatter type="xml"/>
                 <fileset dir="${test.dir}" includes="*Test.java"/>
-            </batchtest>
+            </testclasses>
         </junit>
     </target>
 
