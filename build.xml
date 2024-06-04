@@ -89,7 +89,7 @@
         </junit>
     </target>
 
-        <!-- XML -->
+    <!-- XML -->
     <target name="xml">
         <xmlvalidate lenient="true">
             <fileset dir="${basedir}">
