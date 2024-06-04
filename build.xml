@@ -257,5 +257,4 @@
 
         <echo message="––– TEAM-BUILDING DONE –––"/>
     </target>
-
 </project>
