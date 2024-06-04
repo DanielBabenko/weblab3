@@ -236,7 +236,7 @@
             <arg value="${revision1}"/>
         </exec>
         <antcall target="build">
-            <param name="dist.jar.name" value="${dist.jar.name}-${revision1}.jar"/>
+            <param name="dist.jar.name" value="${dist.jar.name}-${revision1}.war"/>
         </antcall>
 
         <echo>Building revision: ${revision2}</echo>
@@ -245,13 +245,13 @@
             <arg value="${revision2}"/>
         </exec>
         <antcall target="build">
-            <param name="dist.jar.name" value="${dist.jar.name}-${revision2}.jar"/>
+            <param name="dist.jar.name" value="${dist.jar.name}-${revision2}.war"/>
         </antcall>
 
         <zip destfile="${build.dir}/team-revisions.zip">
             <fileset dir="${build.dir}">
-                <include name="${dist.jar.name}-${revision1}.jar"/>
-                <include name="${dist.jar.name}-${revision2}.jar"/>
+                <include name="${dist.jar.name}-${revision1}.war"/>
+                <include name="${dist.jar.name}-${revision2}.war"/>
             </fileset>
         </zip>
 
