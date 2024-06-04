@@ -47,33 +47,33 @@ public class CheckerTest {
     //тесты на валидность x,y,r
     @Test
     public void invalidX() {
-        double low_x = -52;
-        double high_x = 52;
+        double lowX = -52;
+        double highX = 52;
         double y = 2.0;
         double r = 3.0;
 
         boolean expectedValidity = false;
 
-        boolean actualValidity = Checker.getIsValid(low_x, y, r);
+        boolean actualValidity = Checker.getIsValid(lowX, y, r);
         assertEquals(expectedValidity, actualValidity);
 
-        actualValidity = Checker.getIsValid(high_x,y,r);
+        actualValidity = Checker.getIsValid(highX,y,r);
         assertEquals(expectedValidity, actualValidity);
     }
 
     @Test
     public void invalidY() {
         double x = -1;
-        double low_y = -52;
-        double high_y = 52;
+        double lowY = -52;
+        double highY = 52;
         double r = 3.0;
 
         boolean expectedValidity = false;
 
-        boolean actualValidity = Checker.getIsValid(x, low_y, r);
+        boolean actualValidity = Checker.getIsValid(x, lowY, r);
         assertEquals(expectedValidity, actualValidity);
 
-        actualValidity = Checker.getIsValid(x,high_y,r);
+        actualValidity = Checker.getIsValid(x,highY,r);
         assertEquals(expectedValidity, actualValidity);
     }
 
@@ -81,74 +81,85 @@ public class CheckerTest {
     public void invalidR() {
         double x = -1;
         double y = 3.0;
-        double low_r = 0.4;
-        double high_r = 52;
+        double lowR = 0.4;
+        double highR = 52;
         //радиус физически не может быть меньше или равен 0
-        double impossible_r = -52;
+        double impossibleR = -52;
 
         boolean expectedValidity = false;
 
-        boolean actualValidity = Checker.getIsValid(x, y, low_r);
+        boolean actualValidity = Checker.getIsValid(x, y, lowR);
         assertEquals(expectedValidity, actualValidity);
 
-        actualValidity = Checker.getIsValid(x, y, high_r);
+        actualValidity = Checker.getIsValid(x, y, highR);
         assertEquals(expectedValidity, actualValidity);
 
-        actualValidity = Checker.getIsValid(x, y, impossible_r);
+        actualValidity = Checker.getIsValid(x, y, impossibleR);
         assertEquals(expectedValidity, actualValidity);
     }
 
     //тесты на граничные значения
     @Test
     public void borderX() {
-        double low_x = -52;
-        double high_x = 52;
+        double lowBorderX1 = -5.00000000000001;
+        double lowBorderX = -5;
+        double lowBorderX2 = -4.99999999999999;
+
+        double highBorderX1 = 3.00000000000001;
+        double highBorderX = 3;
+        double highBorderX2 = 2.99999999999999;
         double y = 2.0;
         double r = 3.0;
 
-        boolean expectedValidity = false;
+        assertEquals(false, Checker.getIsValid(lowBorderX1, y, r));
+        assertEquals(false, Checker.getIsValid(lowBorderX, y, r));
+        assertEquals(true, Checker.getIsValid(lowBorderX2, y, r));
 
-        boolean actualValidity = Checker.getIsValid(low_x, y, r);
-        assertEquals(expectedValidity, actualValidity);
-
-        actualValidity = Checker.getIsValid(high_x,y,r);
-        assertEquals(expectedValidity, actualValidity);
+        assertEquals(false, Checker.getIsValid(highBorderX1, y, r));
+        assertEquals(false, Checker.getIsValid(highBorderX, y, r));
+        assertEquals(true, Checker.getIsValid(highBorderX2, y, r));
     }
 
     @Test
     public void borderY() {
+        double lowBorderY1 = -5.00000000000001;
+        double lowBorderY = -5;
+        double lowBorderY2 = -4.99999999999999;
+
+        double highBorderY1 = 3.00000000000001;
+        double highBorderY = 3;
+        double highBorderY2 = 2.99999999999999;
         double x = -1;
-        double low_y = -52;
-        double high_y = 52;
         double r = 3.0;
 
-        boolean expectedValidity = false;
+        assertEquals(false, Checker.getIsValid(x, lowBorderY1, r));
+        assertEquals(false, Checker.getIsValid(x, lowBorderY, r));
+        assertEquals(true, Checker.getIsValid(x, lowBorderY2, r));
 
-        boolean actualValidity = Checker.getIsValid(x, low_y, r);
-        assertEquals(expectedValidity, actualValidity);
-
-        actualValidity = Checker.getIsValid(x,high_y,r);
-        assertEquals(expectedValidity, actualValidity);
+        assertEquals(false, Checker.getIsValid(x, highBorderY1, r));
+        assertEquals(false, Checker.getIsValid(x, highBorderY, r));
+        assertEquals(true, Checker.getIsValid(x, highBorderY2, r));
     }
 
     @Test
     public void borderR() {
         double x = -1;
-        double y = 3.0;
-        double low_r = 0.4;
-        double high_r = 52;
-        //радиус физически не может быть меньше или равен 0
-        double impossible_r = -52;
+        double y = 2.0;
 
-        boolean expectedValidity = false;
+        double lowBorderR1 = 0.99999999999999;
+        double lowBorderR = 1;
+        double lowBorderR2 = 1.000000000000001;
 
-        boolean actualValidity = Checker.getIsValid(x, y, low_r);
-        assertEquals(expectedValidity, actualValidity);
+        double highBorderR1 = 4.00000000000001;
+        double highBorderR = 4;
+        double highBorderR2 = 2.99999999999999;
 
-        actualValidity = Checker.getIsValid(x, y, high_r);
-        assertEquals(expectedValidity, actualValidity);
+        assertEquals(false, Checker.getIsValid(x, y, lowBorderR1));
+        assertEquals(false, Checker.getIsValid(x, y, lowBorderR));
+        assertEquals(true, Checker.getIsValid(x, y, lowBorderR2));
 
-        actualValidity = Checker.getIsValid(x, y, impossible_r);
-        assertEquals(expectedValidity, actualValidity);
+        assertEquals(false, Checker.getIsValid(x, y, highBorderR1));
+        assertEquals(false, Checker.getIsValid(x, y, highBorderR));
+        assertEquals(true, Checker.getIsValid(x, y, highBorderR2));
     }
 }
