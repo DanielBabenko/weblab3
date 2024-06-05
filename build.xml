@@ -150,7 +150,7 @@
              todir="${scp.user}@${scp.host}:${scp.dir}"
              password="${scp.password}"
              port="${scp.port}"
-             trust="true"/>
+             trust="true">
     </target>
 
     <!-- History -->
