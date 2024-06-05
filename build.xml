@@ -187,6 +187,7 @@
                 <exec executable="git" output="${build.dir}/diff.txt" failonerror="false">
                     <arg value="diff"/>
                     <arg value="${revision}~1"/>
+                    <arg value="${current.revision}"/>
                 </exec>
                 <exec executable="git" failonerror="false">
                     <arg value="checkout"/>
