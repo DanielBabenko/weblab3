@@ -118,7 +118,7 @@
     </target>
 
     <!-- Doc -->
-    <target name="doc" depends="build">
+    <target name="doc/documentation" depends="build">
         <mkdir dir="doc"/>
         <signjar jar="${build.dir}/${ant.project.name}.jar"
                  alias="ant_keystore"
@@ -127,7 +127,7 @@
                  sigalg="MD5withRSA"
                  digestalg="SHA1"/>
         <javadoc
-                destdir="doc"
+                destdir="doc/documentation"
                 author="true"
                 version="true"
                 use="true">
@@ -137,7 +137,7 @@
             <fileset dir="${src.main.dir}"/>
         </javadoc>
         <jar destfile="${build.dir}/${ant.project.name}.jar"
-             basedir="doc"
+             basedir="doc/documentation"
              update="true">
         </jar>
     </target>
