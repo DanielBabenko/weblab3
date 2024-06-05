@@ -75,14 +75,13 @@
     <!-- Test -->
     <target name="test" depends="build">
         <mkdir dir="${test.classes.dir}"/>
-        <mkdir dir="${junit.report.dir}"/>
         <javac destdir="${test.classes.dir}" srcdir="${test.dir}" classpathref="classpath.testSource" includeantruntime="false"/>
         <junit printsummary="yes" haltonfailure="true" haltonerror="true">
             <classpath>
                 <path refid="classpath.testSource"/>
                 <pathelement location="${test.classes.dir}"/>
             </classpath>
-            <batchtest fork="yes" todir="${junit.report.dir}">
+            <batchtest fork="yes" todir="${test.classes.dir}">
                 <formatter type="xml"/>
                 <fileset dir="${test.dir}" includes="*Test.java"/>
             </batchtest>
