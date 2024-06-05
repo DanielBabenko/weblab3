@@ -187,11 +187,11 @@
                 <exec executable="git" output="${build.dir}/diff.txt" failonerror="false">
                     <arg value="diff"/>
                     <arg value="${revision}~1"/>
-                    <arg value="${current.revision}"/>
+                    <arg value="${previous.revision}"/>
                 </exec>
                 <exec executable="git" failonerror="false">
                     <arg value="checkout"/>
-                    <arg value="${current.revision}"/>
+                    <arg value="${previous.revision}"/>
                 </exec>
                 <fail message="Compilation fixed. Please check diff.txt for changes."/>
             </try>
