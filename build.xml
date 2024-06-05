@@ -205,7 +205,7 @@
     <target name="report" depends="test">
         <mkdir dir="${doc.report.dir}"/>
         <copy todir="${doc.report.dir}">
-            <fileset dir="${test.dir}" includes="*.xml"/>
+            <fileset dir="${test.classes.dir}" includes="*.xml"/>
         </copy>
         <sequential>
             <exec executable="git">
