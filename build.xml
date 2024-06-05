@@ -205,12 +205,12 @@
     <target name="report" depends="test">
         <mkdir dir="${doc.report.dir}"/>
         <copy todir="${doc.report.dir}">
-            <fileset dir="${junit.report.dir}" includes="**/*.txt"/>
+            <fileset dir="${test.dir}" includes="*.xml"/>
         </copy>
         <sequential>
             <exec executable="git">
                 <arg value="add"/>
-                <arg value="*"/>
+                <arg value="${doc.report.dir}/*"/>
             </exec>
             <exec executable="git">
                 <arg value="commit"/>
