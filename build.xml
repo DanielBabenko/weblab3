@@ -137,7 +137,7 @@
             <fileset dir="${src.main.dir}"/>
         </javadoc>
         <jar destfile="${build.dir}/${ant.project.name}.jar"
-             basedir="docs"
+             basedir="doc"
              update="true">
         </jar>
     </target>
