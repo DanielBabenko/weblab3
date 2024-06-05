@@ -118,8 +118,8 @@
     </target>
 
     <!-- Doc -->
-    <target name="doc/documentation" depends="build">
-        <mkdir dir="doc"/>
+    <target name="doc" depends="build">
+        <mkdir dir="doc/documentation"/>
         <signjar jar="${build.dir}/${ant.project.name}.jar"
                  alias="ant_keystore"
                  storepass="msc114"
