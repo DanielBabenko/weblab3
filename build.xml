@@ -170,6 +170,7 @@
 
         <foreach list="${previous.revision}" param="revision" target="find-working-revision">
             <param name="revision" value="${previous.revision}"/>
+            <param name="current.revision" value="${current.revision}"/>
         </foreach>
     </target>
 
