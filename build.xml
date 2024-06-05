@@ -128,7 +128,7 @@
                  sigalg="MD5withRSA"
                  digestalg="SHA1"/>
         <javadoc
-                destdir="docs"
+                destdir="doc"
                 author="true"
                 version="true"
                 use="true">
