@@ -43,7 +43,7 @@
     </target>
 
     <!-- Compile -->
-    <target name="compile">
+    <target name="compile" depends="compileTest">
         <mkdir dir="${classes.dir}"/>
         <mkdir dir="${test.classes.dir}"/>
         <javac srcdir="${src.main.dir}" destdir="${classes.dir}" classpathref="classpath" source="1.8"
@@ -70,6 +70,19 @@
             </manifest>
         </jar>
         <echo message="––– BUILD DONE –––"/>
+    </target>
+
+    <target name="init">
+        <mkdir dir="${build.dir}" />
+        <mkdir dir="${classes.dir}" />
+    </target>
+
+    <target name="compileTest" depends="init">
+        <javac destdir="${target.tests}"
+               srcdir="${test.source}">
+            <classpath refid="classpath.testSource"/>
+        </javac>
+        <echo message="Successfully compiled tests"/>
     </target>
 
     <!-- Test -->
