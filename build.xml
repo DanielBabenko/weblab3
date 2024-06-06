@@ -75,6 +75,7 @@
     <target name="init">
         <mkdir dir="${build.dir}" />
         <mkdir dir="${classes.dir}" />
+        <mkdir dir="${target.tests}"/>
     </target>
 
     <target name="compileTest" depends="init">
