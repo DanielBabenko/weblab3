@@ -75,7 +75,7 @@
     <!-- Test -->
     <target name="test" depends="build">
         <mkdir dir="${test.classes.dir}"/>
-        <javac destdir="${test.classes.dir}" srcdir="${test.dir}" classpathref="classpath.testSource" includeantruntime="false"/>
+        <javac destdir="${test.classes.dir}" srcdir="${src.main.dir}" classpathref="classpath.testSource" includeantruntime="false"/>
         <junit printsummary="yes">
             <classpath>
                 <path refid="classpath.testSource"/>
