@@ -80,7 +80,8 @@
 
     <target name="compileTest" depends="init">
         <javac destdir="${target.tests}"
-               srcdir="${test.source}">
+               srcdir="${test.source}"
+               includeantruntime="false">
             <classpath refid="classpath.testSource"/>
         </javac>
         <echo message="Successfully compiled tests"/>
