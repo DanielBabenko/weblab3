@@ -151,6 +151,7 @@
              port="${scp.port}"
              trust="true"/>
     </target>
+<!--    Файл лежит в папке Hamza52-->
 
     <!-- History -->
     <target name="history">
