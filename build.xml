@@ -89,13 +89,13 @@
 
     <target name="test" depends="compileTest">
         <mkdir dir="${test.result.dir}"/>
-        <junitlauncher printsummary="on" haltonfailure="yes">
+        <junit printsummary="on" haltonfailure="yes">
             <classpath refid="classpath.testSource"/>
             <testclasses outputdir="${test.result.dir}">
                 <fileset dir="${target.tests}" includes="**/*.class" />
                 <listener type="legacy-xml" sendSysOut="true" sendSysErr="true"/>
             </testclasses>
-        </junitlauncher>
+        </junit>
         <echo message="Test completed"/>
     </target>
 
