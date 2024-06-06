@@ -17,7 +17,7 @@
     </path>
 
     <path id="classpath.testSource">
-        <fileset dir="${lib.main.dir}" includes="**/*.jar"/>
+        <fileset dir="src/main/lib" includes="**/*.jar"/>
     </path>
 
     <path id="project.classpath">
