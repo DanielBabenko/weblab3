@@ -89,33 +89,33 @@
 
     <property name="testreports" location="${test.result.dir}" />
 
-    <target name="test" depends="compileTest">
-<!--        <mkdir dir="${test.result.dir}"/>-->
-        <junitlauncher printsummary="on" haltonfailure="yes">
-            <classpath refid="classpath.testSource"/>
-            <testclasses outputdir="${testreports}">
-                <fileset dir="${target.tests}" includes="**/*Test.class" />
-                <listener type="legacy-xml" sendSysOut="true" sendSysErr="true"/>
-            </testclasses>
-        </junitlauncher>
-        <echo message="Test completed"/>
-    </target>
+<!--    <target name="test" depends="compileTest">-->
+<!--&lt;!&ndash;        <mkdir dir="${test.result.dir}"/>&ndash;&gt;-->
+<!--        <junitlauncher printsummary="on" haltonfailure="yes">-->
+<!--            <classpath refid="classpath.testSource"/>-->
+<!--            <testclasses outputdir="${testreports}">-->
+<!--                <fileset dir="${target.tests}" includes="**/*Test.class" />-->
+<!--                <listener type="legacy-xml" sendSysOut="true" sendSysErr="true"/>-->
+<!--            </testclasses>-->
+<!--        </junitlauncher>-->
+<!--        <echo message="Test completed"/>-->
+<!--    </target>-->
 
     <!-- Test -->
-<!--    <target name="test" depends="build, compileTest">-->
-<!--        <mkdir dir="${test.classes.dir}"/>-->
-<!--        <javac destdir="${test.classes.dir}" srcdir="${src.main.dir}" classpathref="classpath.testSource" includeantruntime="false"/>-->
-<!--        <junit printsummary="yes">-->
-<!--            <classpath>-->
-<!--                <path refid="classpath.testSource"/>-->
-<!--                <pathelement location="${test.classes.dir}"/>-->
-<!--            </classpath>-->
-<!--            <batchtest fork="yes" todir="${test.classes.dir}">-->
-<!--                <formatter type="xml"/>-->
-<!--                <fileset dir="${target.tests}" includes="**/*.class" />-->
-<!--            </batchtest>-->
-<!--        </junit>-->
-<!--    </target>-->
+    <target name="test" depends="build, compileTest">
+        <mkdir dir="${test.classes.dir}"/>
+        <javac destdir="${test.classes.dir}" srcdir="${src.main.dir}" classpathref="classpath.testSource" includeantruntime="false"/>
+        <junit printsummary="yes">
+            <classpath>
+                <path refid="classpath.testSource"/>
+                <pathelement location="${test.classes.dir}"/>
+            </classpath>
+            <batchtest fork="yes" todir="${test.classes.dir}">
+                <formatter type="xml"/>
+                <fileset dir="${target.tests}" includes="**/*Test.class" />
+            </batchtest>
+        </junit>
+    </target>
 
     <!-- XML -->
     <target name="xml">
