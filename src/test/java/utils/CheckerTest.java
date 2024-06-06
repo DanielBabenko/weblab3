@@ -7,6 +7,7 @@ import static java.lang.Math.sqrt;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static utils.Checker.*;
 
 public class CheckerTest {
     //простые, что вообще проходит проверка на попадание
@@ -17,7 +18,7 @@ public class CheckerTest {
         double r = 3;
 
         boolean expectedHit = true;
-        boolean actualHit = Checker.checkHit(x, y, r);
+        boolean actualHit = checkHit(x, y, r);
 
         assertEquals(expectedHit, actualHit);
     }
@@ -29,7 +30,7 @@ public class CheckerTest {
         double r = 3;
 
         boolean expectedHit = false;
-        boolean actualHit = Checker.checkHit(x, y, r);
+        boolean actualHit = checkHit(x, y, r);
 
         assertEquals(expectedHit, actualHit);
     }
@@ -41,7 +42,7 @@ public class CheckerTest {
         double r = 3;
 
         boolean expectedValidity = true;
-        boolean actualValidity = Checker.getIsValid(x, y,r);
+        boolean actualValidity = getIsValid(x, y,r);
 
 
         assertEquals(expectedValidity, actualValidity);
@@ -57,10 +58,10 @@ public class CheckerTest {
 
         boolean expectedValidity = false;
 
-        boolean actualValidity = Checker.getIsValid(lowX, y, r);
+        boolean actualValidity = getIsValid(lowX, y, r);
         assertEquals(expectedValidity, actualValidity);
 
-        actualValidity = Checker.getIsValid(highX,y,r);
+        actualValidity = getIsValid(highX,y,r);
         assertEquals(expectedValidity, actualValidity);
     }
 
@@ -73,10 +74,10 @@ public class CheckerTest {
 
         boolean expectedValidity = false;
 
-        boolean actualValidity = Checker.getIsValid(x, lowY, r);
+        boolean actualValidity = getIsValid(x, lowY, r);
         assertEquals(expectedValidity, actualValidity);
 
-        actualValidity = Checker.getIsValid(x,highY,r);
+        actualValidity = getIsValid(x,highY,r);
         assertEquals(expectedValidity, actualValidity);
     }
 
@@ -91,13 +92,13 @@ public class CheckerTest {
 
         boolean expectedValidity = false;
 
-        boolean actualValidity = Checker.getIsValid(x, y, lowR);
+        boolean actualValidity = getIsValid(x, y, lowR);
         assertEquals(expectedValidity, actualValidity);
 
-        actualValidity = Checker.getIsValid(x, y, highR);
+        actualValidity = getIsValid(x, y, highR);
         assertEquals(expectedValidity, actualValidity);
 
-        actualValidity = Checker.getIsValid(x, y, impossibleR);
+        actualValidity = getIsValid(x, y, impossibleR);
         assertEquals(expectedValidity, actualValidity);
     }
 
@@ -114,13 +115,13 @@ public class CheckerTest {
         double y = 2.0;
         double r = 3.0;
 
-        assertFalse(Checker.getIsValid(lowBorderX1, y, r));
-        assertFalse(Checker.getIsValid(lowBorderX, y, r));
-        assertTrue(Checker.getIsValid(lowBorderX2, y, r));
+        assertFalse(getIsValid(lowBorderX1, y, r));
+        assertFalse(getIsValid(lowBorderX, y, r));
+        assertTrue(getIsValid(lowBorderX2, y, r));
 
-        assertFalse(Checker.getIsValid(highBorderX1, y, r));
-        assertFalse(Checker.getIsValid(highBorderX, y, r));
-        assertTrue(Checker.getIsValid(highBorderX2, y, r));
+        assertFalse(getIsValid(highBorderX1, y, r));
+        assertFalse(getIsValid(highBorderX, y, r));
+        assertTrue(getIsValid(highBorderX2, y, r));
     }
 
     @Test
@@ -135,13 +136,13 @@ public class CheckerTest {
         double x = -1;
         double r = 3.0;
 
-        assertFalse(Checker.getIsValid(x, lowBorderY1, r));
-        assertFalse(Checker.getIsValid(x, lowBorderY, r));
-        assertTrue(Checker.getIsValid(x, lowBorderY2, r));
+        assertFalse(getIsValid(x, lowBorderY1, r));
+        assertFalse(getIsValid(x, lowBorderY, r));
+        assertTrue(getIsValid(x, lowBorderY2, r));
 
-        assertFalse(Checker.getIsValid(x, highBorderY1, r));
-        assertFalse(Checker.getIsValid(x, highBorderY, r));
-        assertTrue(Checker.getIsValid(x, highBorderY2, r));
+        assertFalse(getIsValid(x, highBorderY1, r));
+        assertFalse(getIsValid(x, highBorderY, r));
+        assertTrue(getIsValid(x, highBorderY2, r));
     }
 
     @Test
@@ -157,57 +158,57 @@ public class CheckerTest {
         double highBorderR = 4;
         double highBorderR2 = 2.99999999999999;
 
-        assertFalse(Checker.getIsValid(x, y, lowBorderR1));
-        assertFalse(Checker.getIsValid(x, y, lowBorderR));
-        assertTrue(Checker.getIsValid(x, y, lowBorderR2));
+        assertFalse(getIsValid(x, y, lowBorderR1));
+        assertFalse(getIsValid(x, y, lowBorderR));
+        assertTrue(getIsValid(x, y, lowBorderR2));
 
-        assertFalse(Checker.getIsValid(x, y, highBorderR1));
-        assertFalse(Checker.getIsValid(x, y, highBorderR));
-        assertTrue(Checker.getIsValid(x, y, highBorderR2));
+        assertFalse(getIsValid(x, y, highBorderR1));
+        assertFalse(getIsValid(x, y, highBorderR));
+        assertTrue(getIsValid(x, y, highBorderR2));
     }
 
     @Test
     public void checkIfOnSectorEdge() {
-        assertTrue(Checker.checkHit((float)-sqrt(2),(float)sqrt(2),2));
+        assertTrue(checkHit((float)-sqrt(2),(float)sqrt(2),2));
     }
 
     @Test
     public void checkIfOnSector() {
-        assertTrue(Checker.checkHit(-1,1,2));
+        assertTrue(checkHit(-1,1,2));
     }
 
     @Test
     public void checkIfNotOnSector() {
-        assertFalse(Checker.checkHit(-2,2,2));
+        assertFalse(checkHit(-2,2,2));
     }
 
     @Test
     public void checkIfOnRectEdge() {
-        assertTrue(Checker.checkHit(-1,-2,2));
+        assertTrue(checkHit(-1,-2,2));
     }
 
     @Test
     public void checkIfOnRect() {
-        assertTrue(Checker.checkHit(-0.9,-0.9,2));
+        assertTrue(checkHit(-0.9,-0.9,2));
     }
 
     @Test
     public void checkIfNotOnRect() {
-        assertFalse(Checker.checkHit(-1.1,-2.1,1));
+        assertFalse(checkHit(-1.1,-2.1,1));
     }
 
     @Test
     public void checkIfOnTriangleEdge() {
-        assertTrue(Checker.checkHit(0.75,-0.75,3));
+        assertTrue(checkHit(0.75,-0.75,3));
     }
 
     @Test
     public void checkIfOnTriangle() {
-        assertTrue(Checker.checkHit(0.5,-0.6,3));
+        assertTrue(checkHit(0.5,-0.6,3));
     }
 
     @Test
     public void checkIfNotOnTriangle() {
-        assertFalse(Checker.checkHit(1.0000001,-0.5,3));
+        assertFalse(checkHit(1.0000001,-0.5,3));
     }
 }
