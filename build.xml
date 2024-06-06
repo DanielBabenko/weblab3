@@ -87,11 +87,13 @@
         <echo message="Successfully compiled tests"/>
     </target>
 
+    <property name="testreports" location="${test.result.dir}" />
+
     <target name="test" depends="compileTest">
-        <mkdir dir="${test.result.dir}"/>
+<!--        <mkdir dir="${test.result.dir}"/>-->
         <junitlauncher printsummary="on" haltonfailure="yes">
             <classpath refid="classpath.testSource"/>
-            <testclasses outputdir="${test.result.dir}">
+            <testclasses outputdir="${testreports}">
                 <fileset dir="${target.tests}" includes="**/*Test.class" />
                 <listener type="legacy-xml" sendSysOut="true" sendSysErr="true"/>
             </testclasses>
