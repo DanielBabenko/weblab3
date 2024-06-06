@@ -2,11 +2,13 @@ package utils;
 
 import org.junit.Test;
 
-import static java.lang.Math.*;
-import static org.junit.Assert.*;
+import static java.lang.Math.sqrt;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CheckerTest {
-
     //простые, что вообще проходит проверка на попадание
     @Test
     public void trueHitTest() {
