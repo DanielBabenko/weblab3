@@ -14,6 +14,6 @@ public class CheckerTest {
 
     @Test
     public void checkIfNotOnTriangle() {
-        assertEquals(false, checkHit(1.0000001,-0.5,3));
+        assertFalse(checkHit(1.0000001,-0.5,3));
     }
 }
