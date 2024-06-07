@@ -6,33 +6,12 @@
         <fileset dir="${src.main.dir}" includes="*.java"/>
     </path>
 
-    <path id="classpath.test">
-        <pathelement location="${junit}"/>
-        <pathelement location="${hamcrest}"/>
-        <pathelement location="${classes.dir}"/>
-    </path>
-
     <path id="classpath.source">
         <fileset dir="src/main/lib" includes="**/*.jar"/>
     </path>
 
     <path id="classpath.testSource">
         <fileset dir="src/test/lib" includes="**/*.jar"/>
-    </path>
-
-    <path id="project.classpath">
-        <fileset dir="${lib.dir}">
-            <include name="**/*.jar" />
-        </fileset>
-    </path>
-
-    <path id="test.classpath">
-        <path refid="project.classpath" />
-        <pathelement location="${build.dir}/webapp/WEB-INF/classes" />
-        <pathelement location="${build.dir}/test-classes" />
-        <fileset dir="${lib.dir}">
-            <include name="**/*.jar" />
-        </fileset>
     </path>
 
     <!-- Clean -->
