@@ -86,7 +86,6 @@
     <!-- Test -->
     <target name="test" depends="build">
         <mkdir dir="${test.report.dir}"/>
-<!--        <javac destdir="${test.report.dir}" srcdir="${test.dir}" classpathref="classpath.testSource" includeantruntime="false"/>-->
         <junit printsummary="yes" haltonfailure="true" haltonerror="true">
             <classpath>
                 <path refid="classpath.testSource"/>
@@ -98,23 +97,6 @@
             </batchtest>
         </junit>
     </target>
-<!--    <target name="test" depends="build">-->
-<!--        <mkdir dir="${test.classes.dir}"/>-->
-<!--        <javac srcdir="${test.dir}" destdir="${test.classes.dir}" includeantruntime="false" classpathref="classpath.testSource">-->
-<!--            <compilerarg line="-Xlint:unchecked"/>-->
-<!--        </javac>-->
-
-<!--        <mkdir dir="${test.report.dir}"/>-->
-<!--        <junitlauncher haltonfailure="true" printsummary="true">-->
-<!--            <classpath>-->
-<!--                <path refid="classpath.testSource"/>-->
-<!--                <pathelement location="{test.classes.dir}"/>-->
-<!--            </classpath>-->
-<!--            <testclasses outputdir="${test.report.dir}">-->
-<!--                <fileset dir="${test.classes.dir}" includes="**/*Test.class"/>-->
-<!--            </testclasses>-->
-<!--        </junitlauncher>-->
-<!--    </target>-->
 
     <!-- XML -->
     <target name="xml">
