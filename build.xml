@@ -84,19 +84,36 @@
     </target>
 
     <!-- Test -->
+<!--    <target name="test" depends="build">-->
+<!--        <mkdir dir="${test.report.dir}"/>-->
+<!--&lt;!&ndash;        <javac destdir="${test.report.dir}" srcdir="${test.dir}" classpathref="classpath.testSource" includeantruntime="false"/>&ndash;&gt;-->
+<!--        <junit printsummary="yes" haltonfailure="true" haltonerror="true">-->
+<!--            <classpath>-->
+<!--                <path refid="classpath.testSource"/>-->
+<!--                <pathelement location="${test.classes.dir}"/>-->
+<!--            </classpath>-->
+<!--            <batchtest fork="yes" todir="${test.report.dir}">-->
+<!--                <formatter type="xml"/>-->
+<!--                <fileset dir="${test.classes.dir}" includes="**/*Test*.class"/>-->
+<!--            </batchtest>-->
+<!--        </junit>-->
+<!--    </target>-->
     <target name="test" depends="build">
-        <mkdir dir="${test.report.dir}"/>
-<!--        <javac destdir="${test.report.dir}" srcdir="${test.dir}" classpathref="classpath.testSource" includeantruntime="false"/>-->
-        <junit printsummary="yes" haltonfailure="true" haltonerror="true">
+        <mkdir dir="${build.dir}/test-classes"/>
+        <javac srcdir="${test.dir}" destdir="${build.dir}/test-classes" includeantruntime="false" classpathref="test.classpath">
+            <compilerarg line="-Xlint:unchecked"/>
+        </javac>
+
+        <mkdir dir="${build.dir}/test-results"/>
+        <junitlauncher haltonfailure="true" printsummary="true">
             <classpath>
-                <path refid="classpath.testSource"/>
-                <pathelement location="${test.classes.dir}"/>
+                <path refid="test.classpath"/>
+                <pathelement location="${build.dir}/test-classes"/>
             </classpath>
-            <batchtest fork="yes" todir="${test.report.dir}">
-                <formatter type="xml"/>
-                <fileset dir="${test.classes.dir}" includes="**/*Test*.class"/>
-            </batchtest>
-        </junit>
+            <testclasses outputdir="${build.dir}/test-results">
+                <fileset dir="${build.dir}/test-classes" includes="**/*Test.class"/>
+            </testclasses>
+        </junitlauncher>
     </target>
 
     <!-- XML -->
