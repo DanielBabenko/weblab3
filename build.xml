@@ -81,7 +81,7 @@
                     <include name="**/*Test*.class"/>
                     <exclude name="**/*$*.class"/>
                 </fileset>
-                <listener type="legacy-plain" sendSysOut="true"/>
+                <listener type="legacy-xml" sendSysOut="true"/>
             </testclasses>
         </junitlauncher>
     </target>
