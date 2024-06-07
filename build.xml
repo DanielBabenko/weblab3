@@ -72,23 +72,6 @@
         <echo message="––– BUILD DONE –––"/>
     </target>
 
-    <target name="init">
-        <mkdir dir="${build.dir}" />
-        <mkdir dir="${classes.dir}" />
-        <mkdir dir="${target.tests}"/>
-    </target>
-
-    <target name="compileTest" depends="init">
-        <javac destdir="${target.tests}"
-               srcdir="${test.source}"
-               includeantruntime="false">
-            <classpath refid="classpath.testSource"/>
-        </javac>
-        <echo message="Successfully compiled tests"/>
-    </target>
-
-    <property name="testreports" location="${test.result.dir}" />
-
     <!-- Test -->
     <target name="test" depends="build">
         <mkdir dir="${test.classes.dir}"/>
