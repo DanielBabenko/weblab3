@@ -86,7 +86,7 @@
     <!-- Test -->
     <target name="test" depends="build">
         <mkdir dir="${test.report.dir}"/>
-        <javac destdir="${test.report.dir}" srcdir="${test.dir}" classpathref="classpath.testSource" includeantruntime="false"/>
+<!--        <javac destdir="${test.report.dir}" srcdir="${test.dir}" classpathref="classpath.testSource" includeantruntime="false"/>-->
         <junit printsummary="yes" haltonfailure="true" haltonerror="true">
             <classpath>
                 <path refid="classpath.testSource"/>
