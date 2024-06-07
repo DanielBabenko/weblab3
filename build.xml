@@ -52,6 +52,17 @@
             <fileset dir="${resources.dir}"/>
         </copy>
         <echo message="––– COMPILE DONE –––"/>
+
+        <echo>Compiling tests...</echo>
+        <javac srcdir="${test.dir}"
+               destdir="${test.classes.dir}"
+               classpathref="classpath" source="1.8"
+               includeantruntime="false">
+        </javac>
+        <copy todir="${test.classes.dir}">
+            <fileset dir="${resources.dir}"/>
+        </copy>
+        <echo message="––– TEST COMPILE DONE –––"/>
     </target>
 
     <!-- Build -->
