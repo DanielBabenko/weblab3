@@ -93,7 +93,7 @@
                 <pathelement location="${test.classes.dir}"/>
             </classpath>
             <batchtest fork="yes" todir="${test.report.dir}">
-                <formatter type="legacy-xml" sendSysOut="true"
+                <formatter type="xml" sendSysOut="true"
                            sendSysErr="true" />
                 <fileset dir="${test.classes.dir}" includes="**/*Test*.class"/>
             </batchtest>
