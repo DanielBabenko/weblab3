@@ -105,7 +105,7 @@
     <target name="test" depends="build">
         <mkdir dir="${test.classes.dir}"/>
         <javac destdir="${test.classes.dir}" srcdir="${test.dir}" classpathref="classpath.testSource" includeantruntime="false"/>
-        <junitlauncher printsummary="yes" haltonfailure="true" haltonerror="true">
+        <junitlauncher printsummary="yes" haltonfailure="true">
             <classpath>
                 <path refid="classpath.testSource"/>
                 <pathelement location="${test.classes.dir}"/>
