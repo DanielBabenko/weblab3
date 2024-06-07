@@ -85,16 +85,16 @@
 
     <!-- Test -->
     <target name="test" depends="build">
-        <mkdir dir="${test.classes.dir}"/>
-        <javac destdir="${test.classes.dir}" srcdir="${test.dir}" classpathref="classpath.testSource" includeantruntime="false"/>
+        <mkdir dir="${test.report.dir}"/>
+        <javac destdir="${test.report.dir}" srcdir="${test.dir}" classpathref="classpath.testSource" includeantruntime="false"/>
         <junit printsummary="yes" haltonfailure="true" haltonerror="true">
             <classpath>
                 <path refid="classpath.testSource"/>
                 <pathelement location="${test.classes.dir}"/>
             </classpath>
-            <batchtest fork="yes" todir="${test.classes.dir}">
+            <batchtest fork="yes" todir="${test.report.dir}">
                 <formatter type="xml"/>
-                <fileset dir="${test.dir}" includes="**/*Test.java"/>
+                <fileset dir="${test.classes.dir}" includes="**/*Test*.class"/>
             </batchtest>
         </junit>
     </target>
@@ -216,7 +216,7 @@
     <target name="report" depends="test">
         <mkdir dir="${doc.report.dir}"/>
         <copy todir="${doc.report.dir}">
-            <fileset dir="${test.classes.dir}" includes="*.xml"/>
+            <fileset dir="${test.report.dir}" includes="*.xml"/>
         </copy>
         <sequential>
             <exec executable="git">
