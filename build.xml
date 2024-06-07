@@ -38,7 +38,7 @@
     <!-- Clean -->
     <target name="clean">
         <delete dir="${build.dir}"/>
-        <delete dir="${junit.report.dir}"/>
+        <delete dir="${test.report.dir}"/>
         <echo message="––– CLEAN DONE –––"/>
     </target>
 
