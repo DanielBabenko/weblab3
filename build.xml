@@ -110,10 +110,14 @@
                 <path refid="classpath.testSource"/>
                 <pathelement location="${test.classes.dir}"/>
             </classpath>
-            <batchtest fork="yes" todir="${test.classes.dir}">
-                <formatter type="xml"/>
+            <testclasses>
                 <fileset dir="${test.dir}" includes="**/*Test.java"/>
-            </batchtest>
+                <listener type="legacy-xml" sendSysOut="true" sendSysErr="true"/>
+            </testclasses>
+<!--            <batchtest fork="yes" todir="${test.classes.dir}">-->
+<!--                <formatter type="xml"/>-->
+<!--                <fileset dir="${test.dir}" includes="**/*Test.java"/>-->
+<!--            </batchtest>-->
         </junitlauncher>
     </target>
 
