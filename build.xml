@@ -100,7 +100,7 @@
             </classpath>
             <batchtest fork="yes" todir="${test.classes.dir}">
                 <formatter type="xml"/>
-                <fileset dir="${target.tests}" includes="**/*Test.class" />
+                <fileset dir="${test.classes.dir}" includes="**/*Test.java"/>
             </batchtest>
         </junit>
     </target>
