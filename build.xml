@@ -43,36 +43,15 @@
     </target>
 
     <!-- Compile -->
-<!--    <target name="compile">-->
-<!--        <mkdir dir="${classes.dir}"/>-->
-<!--        <mkdir dir="${test.classes.dir}"/>-->
-<!--        <javac srcdir="${src.main.dir}" destdir="${classes.dir}" classpathref="classpath" source="1.8"-->
-<!--               includeantruntime="false"/>-->
-<!--        <copy todir="${classes.dir}">-->
-<!--            <fileset dir="${resources.dir}"/>-->
-<!--        </copy>-->
-<!--        <echo message="––– COMPILE DONE –––"/>-->
-<!--    </target>-->
     <target name="compile">
-        <echo>Compiling code...</echo>
-        <property name="srcdir" value="${src.main.dir}"/>
-        <mkdir dir="${build.classes.dir}"/>
-        <javac srcdir="${src.dir}"
-               destdir="${build.classes.dir}"
-               includeantruntime="false">
-            <classpath refid="classpath.source"/>
-        </javac>
-
-        <echo>Compiling tests...</echo>
-        <mkdir dir="tests"/>
-        <javac srcdir="${test.dir}"
-               destdir="${test.classes.dir}"
-               includeantruntime="false">
-            <classpath>
-                <path refid="classpath.testSource"/>
-                <pathelement location="${build.classes.dir}"/>
-            </classpath>
-        </javac>
+        <mkdir dir="${classes.dir}"/>
+        <mkdir dir="${test.classes.dir}"/>
+        <javac srcdir="${src.main.dir}" destdir="${classes.dir}" classpathref="classpath" source="1.8"
+               includeantruntime="false"/>
+        <copy todir="${classes.dir}">
+            <fileset dir="${resources.dir}"/>
+        </copy>
+        <echo message="––– COMPILE DONE –––"/>
     </target>
 
     <!-- Build -->
