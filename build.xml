@@ -99,19 +99,19 @@
 <!--        </junit>-->
 <!--    </target>-->
     <target name="test" depends="build">
-        <mkdir dir="${build.dir}/test-classes"/>
-        <javac srcdir="${test.dir}" destdir="${build.dir}/test-classes" includeantruntime="false" classpathref="test.classpath">
+        <mkdir dir="${test.classes.dir}"/>
+        <javac srcdir="${test.dir}" destdir="${test.classes.dir}" includeantruntime="false" classpathref="classpath.testSource">
             <compilerarg line="-Xlint:unchecked"/>
         </javac>
 
-        <mkdir dir="${build.dir}/test-results"/>
+        <mkdir dir="${test.report.dir}"/>
         <junitlauncher haltonfailure="true" printsummary="true">
             <classpath>
-                <path refid="test.classpath"/>
-                <pathelement location="${build.dir}/test-classes"/>
+                <path refid="classpath.testSource"/>
+                <pathelement location="{test.classes.dir}"/>
             </classpath>
-            <testclasses outputdir="${build.dir}/test-results">
-                <fileset dir="${build.dir}/test-classes" includes="**/*Test.class"/>
+            <testclasses outputdir="${test.report.dir}">
+                <fileset dir="${test.classes.dir}" includes="**/*Test.class"/>
             </testclasses>
         </junitlauncher>
     </target>
