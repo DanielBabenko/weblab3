@@ -74,7 +74,6 @@
         <junitlauncher printsummary="true">
             <classpath>
                 <pathelement location="${test.classes.dir}"/>
-                <pathelement location="${classes.dir}"/>
                 <path refid="classpath"/>
             </classpath>
             <testclasses outputdir="${test.report.dir}">
