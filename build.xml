@@ -9,6 +9,7 @@
 
     <path id="classpath.test">
         <fileset dir="${test.dir}" includes="**/.java"/>
+        <fileset dir="${lib.dir}" includes="**/*.jar"/>
     </path>
 
     <!-- Clean -->
@@ -78,7 +79,7 @@
         <junitlauncher printsummary="true">
             <classpath>
                 <pathelement location="${test.classes.dir}"/>
-                <path refid="classpath"/>
+                <path refid="classpath.test"/>
             </classpath>
             <testclasses outputdir="${test.report.dir}">
                 <fileset dir="${test.classes.dir}">
