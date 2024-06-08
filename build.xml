@@ -85,7 +85,7 @@
                 <fileset dir="${test.classes.dir}">
                     <include name="**/*Test*.class"/>
                 </fileset>
-                <listener type="xml"/>
+                <listener type="legacy-xml"/>
             </testclasses>
         </junitlauncher>
     </target>
