@@ -79,9 +79,8 @@
             <testclasses outputdir="${test.report.dir}">
                 <fileset dir="${test.classes.dir}">
                     <include name="**/*Test*.class"/>
-                    <exclude name="**/*$*.class"/>
                 </fileset>
-                <listener type="legacy-xml" sendSysOut="true"/>
+                <listener type="legacy-xml" sendSysOut="true" sendSysErr="true"/>
             </testclasses>
         </junitlauncher>
     </target>
