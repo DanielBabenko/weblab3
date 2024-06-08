@@ -80,7 +80,7 @@
                 <fileset dir="${test.classes.dir}">
                     <include name="**/*Test*.class"/>
                 </fileset>
-                <listener type="legacy-xml" sendSysOut="true" sendSysErr="true"/>
+                <listener type="legacy-xml"/>
             </testclasses>
         </junitlauncher>
     </target>
