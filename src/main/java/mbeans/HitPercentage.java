@@ -1,7 +1,7 @@
 package mbeans;
 
-import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ApplicationScoped;
 import java.io.Serializable;
 
 @ManagedBean

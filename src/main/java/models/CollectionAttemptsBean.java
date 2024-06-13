@@ -1,8 +1,6 @@
 package models;
 
-import com.sun.istack.logging.Logger;
 import database.HibernateManager;
-import jakarta.annotation.PostConstruct;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -10,9 +8,6 @@ import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
-
-import javax.management.*;
-import java.lang.management.ManagementFactory;
 
 @ManagedBean(name = "attempts", eager = true)
 @SessionScoped
