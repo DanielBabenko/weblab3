@@ -8,8 +8,8 @@ import javax.faces.bean.ManagedBean;
 import javax.management.Notification;
 import javax.management.NotificationBroadcasterSupport;
 import java.io.Serializable;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.Collection;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @ManagedBean
 @ApplicationScoped

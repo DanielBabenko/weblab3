@@ -3,7 +3,6 @@ package models;
 import com.sun.istack.logging.Logger;
 import database.HibernateManager;
 import jakarta.annotation.PostConstruct;
-import mbeans.*;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -22,8 +21,6 @@ public class CollectionAttemptsBean implements Serializable {
     // потому что взаимодействия с коллекциями могут происходить в разных потоках.
     private CopyOnWriteArrayList<Attempt> attempts;
     private final HibernateManager hibernateManager;
-    private PointsCounterMBean pointsCounter;
-    private HitPercentageMBean hitPercentage;
 
     private Attempt currentAttempt = new Attempt("0", "0", "3");
 
@@ -32,46 +29,16 @@ public class CollectionAttemptsBean implements Serializable {
         attempts = new CopyOnWriteArrayList<>();
     }
 
-    @PostConstruct
-    public void init() {
-        var resultEntity = hibernateManager.getAttempts();
-        attempts = new CopyOnWriteArrayList<>(resultEntity);
-
-        // Регистрация MBeans
-        try {
-            MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
-            ObjectName pointsCounterName = new ObjectName("mbeans:type=PointsCounter");
-            pointsCounter = new PointsCounter(hibernateManager);
-            mbs.registerMBean(pointsCounter, pointsCounterName);
-
-            // Регистрация слушателя уведомлений
-            NotificationListener listener = (notification, handback) -> System.out.println("Received notification: " + notification.getMessage());
-            mbs.addNotificationListener(pointsCounterName, listener, null, null);
-
-            hitPercentage = new HitPercentage(pointsCounter);
-            ObjectName hitPercentageName = new ObjectName("mbeans:type=HitPercentage");
-            StandardMBean hitPercentageMBean = new StandardMBean(hitPercentage, HitPercentageMBean.class);
-            mbs.registerMBean(hitPercentageMBean, hitPercentageName);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public void add(Attempt attempt) {
         attempts.add(attempt);
         hibernateManager.addAttempt(attempt);
-
-        pointsCounter.incrementTotalPoints();
-        if (attempt.getIsHit()) {
-            pointsCounter.incrementHitPoints();
-        }
     }
 
     public void clear() {
         attempts.clear();
 
         hibernateManager.clearAttempts();
-        pointsCounter.resetAndInitializeCounts();
+        //pointsCounter.resetAndInitializeCounts();
     }
 
     public List<Attempt> getAttempts() {
