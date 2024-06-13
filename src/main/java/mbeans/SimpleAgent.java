@@ -7,11 +7,12 @@ import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
+import javax.faces.bean.ManagedBean;
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
 import java.lang.management.ManagementFactory;
 
-@Named
+@ManagedBean
 @ApplicationScoped
 public class SimpleAgent {
 
