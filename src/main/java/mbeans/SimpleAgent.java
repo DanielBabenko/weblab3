@@ -16,7 +16,7 @@ import java.lang.management.ManagementFactory;
 public class SimpleAgent {
 
     @Inject
-    private PointsCounter pointsCounterMBean;
+    private Hello HelloMBean;
 
     @PostConstruct
     public void initAgent() {
@@ -27,7 +27,7 @@ public class SimpleAgent {
         try {
             mBean = new ObjectName("SimpleAgent:name=MBeanAgent");
             if (!mbs.isRegistered(mBean)) {
-                mbs.registerMBean(pointsCounterMBean, mBean);
+                mbs.registerMBean(HelloMBean, mBean);
             }
         } catch(Exception e) {
             e.printStackTrace();
