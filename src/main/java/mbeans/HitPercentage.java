@@ -4,13 +4,17 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ApplicationScoped;
 import java.io.Serializable;
 
-@ManagedBean
 @ApplicationScoped
+@ManagedBean(eager = true)
 public class HitPercentage implements HitPercentageMBean, Serializable {
 
     private PointsCounterMBean pointsCounter;
 
-    public HitPercentage(PointsCounterMBean pointsCounter) {
+    public HitPercentage() {
+
+    }
+
+    public void setPointsCounter(PointsCounter pointsCounter) {
         this.pointsCounter = pointsCounter;
     }
 

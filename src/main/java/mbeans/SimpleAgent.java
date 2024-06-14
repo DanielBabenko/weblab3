@@ -17,7 +17,10 @@ import java.lang.management.ManagementFactory;
 public class SimpleAgent {
 
     @Inject
-    private Hello HelloMBean;
+    private PointsCounter pointsCounterMBean;
+
+    @Inject
+    private HitPercentage hitPercentageMBean;
 
     @PostConstruct
     public void initAgent() {
@@ -26,9 +29,13 @@ public class SimpleAgent {
         ObjectName mBean;
 
         try {
-            mBean = new ObjectName("SimpleAgent:name=MBeanAgent");
+            mBean = new ObjectName("SimpleAgent:name=PointsCounter");
             if (!mbs.isRegistered(mBean)) {
-                mbs.registerMBean(HelloMBean, mBean);
+                mbs.registerMBean(pointsCounterMBean, mBean);
+            }
+            mBean = new ObjectName("SimpleAgent:name=HitPercentage");
+            if (!mbs.isRegistered(mBean)) {
+                mbs.registerMBean(hitPercentageMBean, mBean);
             }
         } catch(Exception e) {
             e.printStackTrace();

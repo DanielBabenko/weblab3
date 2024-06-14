@@ -1,19 +1,28 @@
 package models;
 
 import database.HibernateManager;
+import mbeans.HitPercentage;
+import mbeans.PointsCounter;
 
+import javax.annotation.PostConstruct;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import java.io.Serializable;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 @ManagedBean(name = "attempts", eager = true)
-@SessionScoped
+@ApplicationScoped
 public class CollectionAttemptsBean implements Serializable {
-    //нужно использовать потокобезопасные коллекции,
-    // потому что взаимодействия с коллекциями могут происходить в разных потоках.
+    @Inject
+    private PointsCounter pointsCounter;
+
+    @Inject
+    private HitPercentage hitPercentage;
+
     private CopyOnWriteArrayList<Attempt> attempts;
     private final HibernateManager hibernateManager;
 
@@ -24,16 +33,24 @@ public class CollectionAttemptsBean implements Serializable {
         attempts = new CopyOnWriteArrayList<>();
     }
 
+    @PostConstruct
+    public void init() {
+        pointsCounter.prepare(attempts);
+        hitPercentage.setPointsCounter(pointsCounter);
+    }
+
     public void add(Attempt attempt) {
         attempts.add(attempt);
         hibernateManager.addAttempt(attempt);
+        pointsCounter.incrementTotalPoints();
+        pointsCounter.incrementHitPoints();
     }
 
     public void clear() {
         attempts.clear();
 
         hibernateManager.clearAttempts();
-        //pointsCounter.resetAndInitializeCounts();
+        pointsCounter.resetAndInitializeCounts();
     }
 
     public List<Attempt> getAttempts() {
