@@ -20,7 +20,7 @@ public class PointsCounter extends NotificationBroadcasterSupport implements Poi
     private AtomicInteger totalPoints = new AtomicInteger(0);
     private AtomicInteger hitPoints = new AtomicInteger(0);
     private long hitNumber = 0;
-    private long sequenceNumber = 0;
+    private long sequenceNumber = 1;
     private List<Attempt> attempts;
 
     public PointsCounter() {
@@ -49,6 +49,7 @@ public class PointsCounter extends NotificationBroadcasterSupport implements Poi
         totalPoints.set(0);
         hitPoints.set(0);
         hitNumber = 0;
+        sequenceNumber = 1;
         attempts.clear();
         initializeCounts();
     }
