@@ -10,6 +10,7 @@ import javax.management.Notification;
 import javax.management.NotificationBroadcasterSupport;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -19,14 +20,14 @@ public class PointsCounter extends NotificationBroadcasterSupport implements Poi
     private AtomicInteger totalPoints = new AtomicInteger(0);
     private AtomicInteger hitPoints = new AtomicInteger(0);
     private long hitNumber = 0;
-    private long sequenceNumber = 1;
-    private CopyOnWriteArrayList<Attempt> attempts;
+    private long sequenceNumber = 0;
+    private List<Attempt> attempts;
 
     public PointsCounter() {
         //пустой конструктор, чтобы всё запускалось
     }
 
-    public void prepare(CopyOnWriteArrayList<Attempt> attempts) {
+    public void prepare(List<Attempt> attempts) {
         this.attempts = attempts;
         initializeCounts();
     }
@@ -37,6 +38,7 @@ public class PointsCounter extends NotificationBroadcasterSupport implements Poi
         for (Attempt attempt : attempts) {
             totalPoints.incrementAndGet();
             hitNumber++;
+            divideTenCheck();
             if (attempt.getIsHit()) {
                 hitPoints.incrementAndGet();
             }
@@ -47,6 +49,7 @@ public class PointsCounter extends NotificationBroadcasterSupport implements Poi
         totalPoints.set(0);
         hitPoints.set(0);
         hitNumber = 0;
+        attempts.clear();
         initializeCounts();
     }
 
@@ -64,6 +67,10 @@ public class PointsCounter extends NotificationBroadcasterSupport implements Poi
     public void incrementTotalPoints() {
         totalPoints.incrementAndGet();
         hitNumber++;
+        divideTenCheck();
+    }
+
+    private void divideTenCheck(){
         if (hitNumber % 10 == 0) {
             Notification n = new Notification("HitNumber", this, sequenceNumber++,
                     System.currentTimeMillis(), "Число точек на графике кратно 10!");

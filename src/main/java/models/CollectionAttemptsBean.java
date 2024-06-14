@@ -10,7 +10,10 @@ import javax.faces.bean.ManagedBean;
 
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.management.MBeanServer;
+import javax.management.ObjectName;
 import java.io.Serializable;
+import java.lang.management.ManagementFactory;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -35,15 +38,34 @@ public class CollectionAttemptsBean implements Serializable {
 
     @PostConstruct
     public void init() {
-        pointsCounter.prepare(attempts);
+        pointsCounter.prepare(getAttempts());
         hitPercentage.setPointsCounter(pointsCounter);
+
+        MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
+
+        ObjectName mBean;
+
+        try {
+            mBean = new ObjectName("52Agent:name=PointsCounter");
+            if (!mbs.isRegistered(mBean)) {
+                mbs.registerMBean(pointsCounter, mBean);
+            }
+            mBean = new ObjectName("52Agent:name=HitPercentage");
+            if (!mbs.isRegistered(mBean)) {
+                mbs.registerMBean(hitPercentage, mBean);
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void add(Attempt attempt) {
         attempts.add(attempt);
         hibernateManager.addAttempt(attempt);
         pointsCounter.incrementTotalPoints();
-        pointsCounter.incrementHitPoints();
+        if (attempt.getIsHit()){
+            pointsCounter.incrementHitPoints();
+        }
     }
 
     public void clear() {
