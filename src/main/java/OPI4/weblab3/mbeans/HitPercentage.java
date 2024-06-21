@@ -1,4 +1,4 @@
-package mbeans;
+package OPI4.weblab3.mbeans;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ApplicationScoped;

@@ -1,17 +1,13 @@
-package mbeans;
+package OPI4.weblab3.mbeans;
 
-import database.HibernateManager;
-import models.Attempt;
-import models.CollectionAttemptsBean;
+import OPI4.weblab3.models.Attempt;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.management.Notification;
 import javax.management.NotificationBroadcasterSupport;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @ApplicationScoped

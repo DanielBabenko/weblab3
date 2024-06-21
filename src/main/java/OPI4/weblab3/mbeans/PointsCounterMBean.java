@@ -1,9 +1,4 @@
-package mbeans;
-
-import database.HibernateManager;
-import models.Attempt;
-
-import java.util.concurrent.CopyOnWriteArrayList;
+package OPI4.weblab3.mbeans;
 
 public interface PointsCounterMBean {
     int getTotalPoints();

@@ -1,8 +1,8 @@
-package models;
+package OPI4.weblab3.models;
 
-import database.HibernateManager;
-import mbeans.HitPercentage;
-import mbeans.PointsCounter;
+import OPI4.weblab3.database.HibernateManager;
+import OPI4.weblab3.mbeans.HitPercentage;
+import OPI4.weblab3.mbeans.PointsCounter;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
@@ -46,11 +46,11 @@ public class CollectionAttemptsBean implements Serializable {
         ObjectName mBean;
 
         try {
-            mBean = new ObjectName("52Agent:name=PointsCounter");
+            mBean = new ObjectName("OPI4.weblab3:name=PointsCounter");
             if (!mbs.isRegistered(mBean)) {
                 mbs.registerMBean(pointsCounter, mBean);
             }
-            mBean = new ObjectName("52Agent:name=HitPercentage");
+            mBean = new ObjectName("OPI4.weblab3:name=HitPercentage");
             if (!mbs.isRegistered(mBean)) {
                 mbs.registerMBean(hitPercentage, mBean);
             }

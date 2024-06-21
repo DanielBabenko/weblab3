@@ -1,10 +1,9 @@
-package models;
+package OPI4.weblab3.models;
 
-import utils.Checker;
+import OPI4.weblab3.utils.Checker;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.text.DecimalFormat;
 import java.util.Objects;
 
 @Entity

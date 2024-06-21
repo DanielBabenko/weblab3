@@ -1,6 +1,6 @@
-package database;
+package OPI4.weblab3.database;
 
-import models.Attempt;
+import OPI4.weblab3.models.Attempt;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;

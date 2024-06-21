@@ -23,7 +23,7 @@
         <property name="hibernate.hbm2ddl.auto">update</property>
 
         <!-- Annotated entity classes -->
-        <mapping class="models.Attempt"/>
+        <mapping class="OPI4.weblab3.models.Attempt"/>
 
     </session-factory>
 </hibernate-configuration>
